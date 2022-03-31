@@ -5,7 +5,114 @@ import sqlite3
 
 root = Tk()
 root.title("Databases")
-root.geometry("600x600")
+root.geometry("400x300")
+
+
+def deleteSliderItem(title):
+    MsgBox = tkinter.messagebox.askquestion('Delete Slider Item?', 'Are you sure you want to delete this slider item?', icon='warning')
+    if MsgBox == 'no':
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM sliderItems WHERE title="{title}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="There is no slider item with this title!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""DELETE FROM sliderItems WHERE title="{title}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+
+def editSliderItem(imageUrl, title, description, oldTitle):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM sliderItems WHERE title="{oldTitle}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="There is no slider item with this title!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""UPDATE sliderItems SET imageUrl="{imageUrl}", title="{title}", description="{description}" WHERE title="{oldTitle}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+def addSliderItem(imageUrl, title, description):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM sliderItems WHERE title="{title}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) > 0:
+        tkinter.messagebox.showerror(title="ERROR", message="There is already a slider item with this title!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""INSERT INTO sliderItems (imageUrl, title, description) VALUES ("{imageUrl}", "{title}", "{description}")""")
+    myConnection.commit()
+    myConnection.close()
+    top.destroy()
+    onLoggedIn()
+def showSliderItemForm(title, mode):
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM sliderItems WHERE title="{title}" """)
+        results = myCursor.fetchall()
+        myConnection.commit()
+        myConnection.close()
+        if len(results) == 0:
+            print(title, results)
+            tkinter.messagebox.showerror(title="ERROR", message="There is no slider items with this title!")
+            return
+    global top
+    top = Toplevel(root, width=600, height=600)
+
+    if mode == "edit":
+        Label(top, text="Edit "+title).grid(row=0, column=1)
+    if mode == "add":
+        Label(top, text="Add").grid(row=0, column=1)
+
+    Label(top, text="Image URL: ").grid(row=1, column=0)
+    imgUrlEdit = Entry(top)
+    imgUrlEdit.grid(row=1, column=1)
+
+    Label(top, text="Title: ").grid(row=2, column=0)
+    titleEdit = Entry(top)
+    titleEdit.grid(row=2, column=1)
+
+    Label(top, text="Description: ").grid(row=3, column=0)
+    descriptionEdit = Entry(top)
+    descriptionEdit.grid(row=3, column=1)
+
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM sliderItems WHERE title="{title}" """)
+        results = myCursor.fetchall()
+        print(results)
+        print(results[0][0])
+        myConnection.commit()
+        myConnection.close()
+        imgUrlEdit.delete(0,END)
+        imgUrlEdit.insert(0,results[0][0])
+        titleEdit.delete(0,END)
+        titleEdit.insert(0,results[0][1])
+        descriptionEdit.delete(0,END)
+        descriptionEdit.insert(0,results[0][2])
+    if mode == "edit":
+        Button(top, text="Edit", command=lambda: editSliderItem(imgUrlEdit.get(), titleEdit.get(), descriptionEdit.get(), title)).grid(row=5, column=1)
+    if mode == "add":
+        Button(top, text="Add", command=lambda: addSliderItem(imgUrlEdit.get(), titleEdit.get(), descriptionEdit.get())).grid(row=5, column=1)
+
 
 def deleteNews(title):
 
@@ -126,7 +233,7 @@ def showNewsForm(title, mode):
 def editUser(username, password, usertype, oldUsername):
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM users WHERE username="{username}" """)
+    myCursor.execute(f"""SELECT * FROM users WHERE username="{oldUsername}" """)
     results = myCursor.fetchall()
     myConnection.commit()
     myConnection.close()
@@ -229,24 +336,26 @@ def showUserForm(name, mode):
     if mode == "add":
         Button(top, text="Add", command=lambda: addNewUser(usernameEdit.get(), passwordEdit.get(), userTypeEdit.get())).grid(row=4, column=1)
 
+
 def onLoggedIn():
 
     for child in root.winfo_children():
         child.destroy()
 
     Label(root, text="Edit user: ").grid(row=0, column=0)
-    userSelect=ttk.Combobox(root)
+    userSelect = ttk.Combobox(root)
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT username FROM users""")
     results = myCursor.fetchall()
     myConnection.close()
-    userSelect["values"]=results
+    print(results)
+    userSelect["values"] = list(map(lambda x: x[0], results))
+    print("val:", userSelect["values"])
     userSelect.grid(row=0, column=1)
     Button(root, text="Edit", command=lambda: showUserForm(userSelect.get(), "edit")).grid(row=0, column=2)
     Button(root, text="Delete", command=lambda: deleteUser(userSelect.get())).grid(row=0, column=3)
     Button(root, text="Add", command=lambda: showUserForm(userSelect.get(), "add")).grid(row=0, column=4)
-
 
     Label(root, text="Edit news: ").grid(row=1, column=0)
     myConnection = sqlite3.connect('CMS.db')
@@ -255,20 +364,26 @@ def onLoggedIn():
     results = myCursor.fetchall()
     myConnection.commit()
     myConnection.close()
-    print("results :", results)
-    mappedResults = []
-    for result in results:
-        mappedResults.append(result[0])
-    print("mapped results:", mappedResults)
-    if len(results) == 0:
-        starting=""
-    else:
-        starting=mappedResults[0]
-    newsSelect = tkinter.StringVar(root, starting)
-    optionMenu = ttk.OptionMenu(root, newsSelect, starting, *mappedResults).grid(row=1, column=1)
-    Button(root, text="Edit", command=lambda: showNewsForm(newsSelect.get(), "edit")).grid(row=1, column=2)
-    Button(root, text="Delete", command=lambda: deleteNews(newsSelect.get())).grid(row=1, column=3)
-    Button(root, text="Add", command=lambda: showNewsForm(newsSelect.get(), "add")).grid(row=1, column=4)
+    optionMenu = ttk.Combobox(root)
+    optionMenu["values"] = list(map(lambda x: x[0], results))
+    optionMenu.grid(row=1, column=1)
+    Button(root, text="Edit", command=lambda: showNewsForm(optionMenu.get(), "edit")).grid(row=1, column=2)
+    Button(root, text="Delete", command=lambda: deleteNews(optionMenu.get())).grid(row=1, column=3)
+    Button(root, text="Add", command=lambda: showNewsForm(optionMenu.get(), "add")).grid(row=1, column=4)
+
+    Label(root, text="Edit slider items: ").grid(row=2, column=0)
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT title FROM sliderItems""")
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    sliderItems = ttk.Combobox(root)
+    sliderItems["values"] = list(map(lambda x: x[0], results))
+    sliderItems.grid(row=2, column=1)
+    Button(root, text="Edit", command=lambda: showSliderItemForm(sliderItems.get(), "edit")).grid(row=2, column=2)
+    Button(root, text="Delete", command=lambda: deleteSliderItem(sliderItems.get())).grid(row=2, column=3)
+    Button(root, text="Add", command=lambda: showSliderItemForm(sliderItems.get(), "add")).grid(row=2, column=4)
 
 def logIn():
     # tworzenie bazy lub połączenie z istniejącą bazą
