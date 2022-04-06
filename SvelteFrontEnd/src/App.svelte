@@ -1,5 +1,7 @@
 <script>
 	import loginPage from "./routes/loginPage.svelte";
+	import registerPage from "./routes/registerPage.svelte";
+	import mainPage from "./routes/mainPage.svelte";
 	import Tailwindcss from "./Tailwindcss.svelte";
 	import Router from "svelte-spa-router";
   </script>
@@ -8,7 +10,9 @@
   
   <Router
 	routes={{
-	  "/": loginPage
+		"/": mainPage,
+		"/registerPage": registerPage,
+	  	"/logInPage": loginPage
 	}}
   />
   <main />
