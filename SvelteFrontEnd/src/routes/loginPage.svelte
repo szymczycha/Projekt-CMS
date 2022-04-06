@@ -7,7 +7,7 @@
         <input name="password" type="password"/>
         <div style="display: flex; justify-content: space-evenly; width:100%;">
             <input type="submit" value="Log In"/>    
-            <a href="/#/registerPage">Register</a>    
+            <a href="/#/registerPage" class="aAsButton">Register</a>
         </div>
     </form>
 </div>
