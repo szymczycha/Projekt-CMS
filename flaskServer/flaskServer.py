@@ -23,8 +23,13 @@ def logIn():
     results = myCursor.fetchall()
     myConnection.close()
     print(results)
-    message = "ok" if len(results) > 0 else "nieok"
-    res = make_response(jsonify({"message": message}), 200)
+    if(len(results) > 0 ):
+        loggedIn = "true"
+        userType = results[0][2]
+    else:
+        loggedIn = "false"
+        userType = "none"
+    res = make_response(jsonify({"loggedIn": loggedIn, "userType": userType}), 200)
     return res
 if __name__ == "__main__":
     app.run(debug=True)
