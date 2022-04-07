@@ -31,5 +31,33 @@ def logIn():
         userType = "none"
     res = make_response(jsonify({"loggedIn": loggedIn, "userType": userType}), 200)
     return res
+
+@app.route("/register", methods=["POST"])
+def register():
+    req = request.get_json()
+    print(req)
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM users WHERE username="{req["username"]}" """)
+    results = myCursor.fetchall()
+    myConnection.close()
+    print(results)
+    if(len(results) == 0 ):
+
+        myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""INSERT INTO users (username, password, userType) VALUES("{req["username"]}", "{req["password"]}", "moderator") """)
+        myConnection.commit()
+        myConnection.close()
+
+
+
+        message = "added new user"
+
+
+    else:
+        message = "A user with this username already exists"
+    res = make_response(jsonify({"message": message}), 200)
+    return res
 if __name__ == "__main__":
     app.run(debug=True)
