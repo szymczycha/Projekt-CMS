@@ -86,12 +86,16 @@
 
     window.onload = () => {
         showSlides(slideIndex);
+        document.getElementById("userType").innerText =
+            "Hi " +
+            (sessionStorage.getItem("userType") ?? "unregisterred user");
     };
 </script>
 
 <header>
     <nav>
         <div>Icon</div>
+        <div id="userType" />
         <div>
             <a href="/#/logInPage" id="loginBtn">Log In</a>
             <a href="/#/registerPage" id="registerBtn">Register</a>

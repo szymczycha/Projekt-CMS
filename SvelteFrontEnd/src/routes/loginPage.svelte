@@ -16,6 +16,7 @@
                 if (data.loggedIn == "true") {
                     sessionStorage.setItem("loggedIn", "true");
                     sessionStorage.setItem("userType", data.userType);
+                    window.location.href = "/";
                 }
                 console.log(
                     sessionStorage.getItem("loggedIn"),
