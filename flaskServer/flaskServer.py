@@ -15,7 +15,7 @@ def home(path):
 
 @app.route("/logIn", methods=["POST"])
 def logIn():
-    req = jsonify(request.get_json())
+    req = request.get_json()
     print(req)
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
