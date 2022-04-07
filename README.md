@@ -15,3 +15,10 @@
 - title
 - description
 - interval
+
+4. contentCards
+- title
+- subtitle
+- content
+- imageURL
+- isImageOnLeftSide

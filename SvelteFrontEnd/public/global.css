@@ -281,7 +281,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .newsBox {
@@ -318,4 +318,42 @@ nav {
   background-color: #999;
   padding: 5px 10px;
   font-weight: 500;
+}
+
+/* content cards */
+
+#contentCards-container {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card h4,
+.card h5 {
+  display: inline;
+}
+
+.card h4 {
+  font-size: 200%;
+  margin-right: 10px;
+}
+
+.card h5 {
+  font-size: 130%;
+  color: #888;
+}
+
+.cardImg {
+  width: 500px;
+  height: 500px;
+}
+
+.cardContent {
+  width: calc(100% - 500px);
+  padding: 10px;
 }

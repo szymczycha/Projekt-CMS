@@ -42,6 +42,36 @@
         },
     ];
 
+    let contentCardsData = [
+        {
+            title: "Page content 1",
+            subtitle: "This is sub tile",
+            content:
+                "is going to b epic card yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            imageURL:
+                "https://media.discordapp.net/attachments/640672443710701568/901173807841153084/image0-1.png?width=633&height=676",
+            isImageOnLeftSide: false,
+        },
+        {
+            title: "Page contet 2",
+            subtitle: "This sub is titl",
+            content:
+                "<scripr> while(true) program.hack(you); print(':)');<scirp/>",
+            imageURL:
+                "https://media.discordapp.net/attachments/741945274901200897/885139560135295006/image0-105.gif",
+            isImageOnLeftSide: true,
+        },
+        {
+            title: "Page content e",
+            subtitle: "Telk is soup",
+            content:
+                "mik uderzył psa to mu powiedziałem co ty robisz nie bij psa a on mi mów nie udzerzyłem patrz to jest uderzenie i mnie uderzył w kolano to ja go uderzyłem w czaszke z pięsci i mamie się to niespodobało ",
+            imageURL:
+                "https://media.discordapp.net/attachments/659630509894271001/793958618377748492/image0-37.gif",
+            isImageOnLeftSide: false,
+        },
+    ];
+
     let slideIndex = 1;
     let slideInterval;
 
@@ -168,6 +198,30 @@
                     <p>{news.content}</p>
                     <button>{news.buttonText}</button>
                 </div>
+            </div>
+        {/each}
+    </div>
+
+    <div id="contentCards-container">
+        {#each contentCardsData as card}
+            <hr />
+            <div
+                class="card"
+                style="flex-direction:{card.isImageOnLeftSide
+                    ? 'row-reverse'
+                    : 'row'};"
+            >
+                <div
+                    class="cardContent"
+                    style="text-align:{card.isImageOnLeftSide
+                        ? 'right'
+                        : 'left'};"
+                >
+                    <h4>{card.title}</h4>
+                    <h5>{card.subtitle}</h5>
+                    <p>{card.content}</p>
+                </div>
+                <img class="cardImg" src={card.imageURL} alt={card.imageURL} />
             </div>
         {/each}
     </div>
