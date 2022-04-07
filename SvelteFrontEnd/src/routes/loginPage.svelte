@@ -1,5 +1,19 @@
 <script>
     async function logIn() {
+        if (
+            document.getElementById("username").value.replace(" ", "") == "" &&
+            document.getElementById("password").value.replace(" ", "") == ""
+        ) {
+            return;
+        }
+        if (
+            document.getElementById("username").value.replace(" ", "") !=
+                document.getElementById("username").value &&
+            document.getElementById("password").value.replace(" ", "") !=
+                document.getElementById("username").value
+        ) {
+            return;
+        }
         await fetch("http://127.0.0.1:5000/logIn", {
             method: "POST",
             headers: {
