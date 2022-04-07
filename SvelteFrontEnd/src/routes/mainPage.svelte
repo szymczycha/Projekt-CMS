@@ -105,8 +105,8 @@
                 <button
                     id="logOutBtn"
                     on:click={() => {
-                        sessionStorage.setItem("loggedIn", null);
-                        sessionStorage.setItem("userType", null);
+                        sessionStorage.setItem("loggedIn", "");
+                        sessionStorage.setItem("userType", "");
                         window.location.reload();
                     }}>Log Out</button
                 >
