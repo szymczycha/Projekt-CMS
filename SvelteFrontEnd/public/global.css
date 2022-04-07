@@ -103,6 +103,11 @@ nav {
   background-color: #555;
 }
 
+#headerIcon {
+  width: 30px;
+  height: 30px;
+}
+
 #loginBtn,
 #registerBtn,
 #logOutBtn {

@@ -124,7 +124,7 @@
 
 <header>
     <nav>
-        <div>Icon</div>
+        <img id="headerIcon" src="favicon.png" alt="icon" />
         <div id="userType" />
         <div>
             {#if sessionStorage.getItem("loggedIn") != "true"}
