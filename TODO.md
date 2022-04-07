@@ -2,7 +2,7 @@
 1. Tkinter
     1. managing nav
     2. managing footer
-    2. managing the block of text on the bottom ???
+    3. managing the block of text on the bottom ???
 2. Management from the website!
     1. managing nav
     2. managing slider
