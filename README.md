@@ -14,3 +14,4 @@
 - imageUrl
 - title
 - description
+- interval
