@@ -22,7 +22,11 @@
         <label for="password">Password</label>
         <input id="password" name="password" type="password"/>
         <div style="display: flex; justify-content: space-evenly; width:100%;">
+<<<<<<< HEAD
             <button on:click={logIn}>Log In</button>  
+=======
+            <button on:click={logIn} class="aAsButton">Log In</button>
+>>>>>>> a2c9a120670d5ec6d3113b2651a976453772e47a
             <a href="/#/registerPage" class="aAsButton">Register</a>
         </div>
     </div>
