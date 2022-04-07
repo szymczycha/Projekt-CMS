@@ -24,7 +24,8 @@ myCursor.execute("""CREATE TABLE IF NOT EXISTS news(
 myCursor.execute("""CREATE TABLE IF NOT EXISTS sliderItems(
             imageUrl text,
             title text,
-            description text
+            description text,
+            interval integer
             )""")
 # zapisywanie zmian w bazie
 myConnection.commit()
