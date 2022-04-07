@@ -104,7 +104,8 @@ nav {
 }
 
 #loginBtn,
-#registerBtn {
+#registerBtn,
+#logOutBtn {
   border: 1px solid;
   border-radius: 5px;
   padding: 2px 10px;
@@ -118,6 +119,13 @@ nav {
 #registerBtn {
   border-color: #0000ff;
   color: #0000ff;
+}
+
+#logOutBtn {
+  border-color: red;
+  color: red;
+  background: none;
+  margin: 0;
 }
 
 .aAsButton {
