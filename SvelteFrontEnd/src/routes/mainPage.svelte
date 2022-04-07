@@ -133,11 +133,7 @@
         {#each sliderData as slide, i}
             <div class="mySlides fade">
                 <div class="numbertext">{i + 1} / {sliderData.length}</div>
-                <img
-                    src={slide.imageUrl}
-                    style="width:100%; max-height: 350px;"
-                    alt="slider"
-                />
+                <img src={slide.imageUrl} alt="slider" />
                 <div class="sliderContent">
                     <div class="text">{slide.title}</div>
                     <div class="subtext">{slide.description}</div>
