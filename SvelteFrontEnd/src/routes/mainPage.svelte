@@ -21,6 +21,26 @@
             interval: 10000,
         },
     ];
+    let newsData = [
+        {
+            header: "News 1",
+            title: "Holy hsit guise",
+            content: "lorem ipus",
+            buttonText: "going",
+        },
+        {
+            header: "News dwa",
+            title: "Sample tect",
+            content: "lorm imbus",
+            buttonText: "button.text",
+        },
+        {
+            header: "News 3",
+            title: "))))))))",
+            content: "l'oreal igloo",
+            buttonText: "[Object[Object]]",
+        },
+    ];
 
     let slideIndex = 1;
     let slideInterval;
@@ -115,6 +135,4 @@
         >
     </div>
     <br />
-
-    <!-- The dots/circles -->
 </main>
