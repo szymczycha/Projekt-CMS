@@ -1,18 +1,9 @@
 from flask import Flask, render_template, request, jsonify, make_response
-from flask_bootstrap import Bootstrap
-from flask_moment import Moment
-from datetime import datetime
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, HiddenField
-from wtforms.validators import DataRequired
-from math import pi
 import sqlite3
 
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ASFADFAFGEC(UUUUUU98U"
-bootstrap = Bootstrap(app)
-moment = Moment(app)
 
 @app.route("/logIn", methods=["POST"])
 def logIn():
