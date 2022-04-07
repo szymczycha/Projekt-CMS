@@ -5,29 +5,35 @@
                 "https://thumbs.gfycat.com/MiniatureGiddyKusimanse-max-1mb.gif",
             title: "Monke",
             description: "eet bananan",
+            interval: 2000,
         },
         {
             imageUrl: "https://c.tenor.com/TTfEcL3R8ToAAAAC/monkeys.gif",
             title: "Monke2",
             description: "where bananan",
+            interval: 5000,
         },
         {
             imageUrl:
                 "https://media.discordapp.net/attachments/683372664546525228/911289580148367400/gomus.gif",
             title: "gomus))",
             description: "my beloverd",
+            interval: 10000,
         },
     ];
 
     let slideIndex = 1;
+    let slideInterval;
 
     // Next/previous controls
     function plusSlides(n) {
+        clearInterval(slideInterval);
         showSlides((slideIndex += n));
     }
 
     // Thumbnail image controls
     function currentSlide(n) {
+        clearInterval(slideInterval);
         showSlides((slideIndex = n));
     }
 
@@ -50,6 +56,12 @@
         }
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].classList.add("active");
+        //console.log(slideIndex);
+        clearInterval(slideInterval);
+        slideInterval = window.setInterval(() => {
+            slideIndex++;
+            showSlides(slideIndex);
+        }, sliderData[slideIndex - 1].interval);
     }
 
     window.onload = () => {
