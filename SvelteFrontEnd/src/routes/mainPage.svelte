@@ -87,8 +87,7 @@
     window.onload = () => {
         showSlides(slideIndex);
         document.getElementById("userType").innerText =
-            "Hi " +
-            (sessionStorage.getItem("userType") ?? "unregisterred user");
+            "Hi " + (sessionStorage.getItem("userType") ?? "unregistered user");
         console.log(sessionStorage.getItem("loggedIn"));
     };
 </script>
@@ -106,7 +105,7 @@
                     id="logOutBtn"
                     on:click={() => {
                         sessionStorage.setItem("loggedIn", "");
-                        sessionStorage.setItem("userType", "");
+                        sessionStorage.setItem("userType", "unregistered user");
                         window.location.reload();
                     }}>Log Out</button
                 >
