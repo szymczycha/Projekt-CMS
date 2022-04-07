@@ -99,8 +99,20 @@
         <div id="userType" />
         <div>
             {#if sessionStorage.getItem("loggedIn") != "true"}
-                <a href="/#/logInPage" id="loginBtn">Log In</a>
-                <a href="/#/registerPage" id="registerBtn">Register</a>
+                <a
+                    href="/#/logInPage"
+                    id="loginBtn"
+                    on:click={() => {
+                        clearInterval(slideInterval);
+                    }}>Log In</a
+                >
+                <a
+                    href="/#/registerPage"
+                    id="registerBtn"
+                    on:click={() => {
+                        clearInterval(slideInterval);
+                    }}>Register</a
+                >
             {:else}
                 <button
                     id="logOutBtn"
