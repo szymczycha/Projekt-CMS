@@ -151,4 +151,17 @@
         >
     </div>
     <br />
+
+    <div id="news-container">
+        {#each newsData as news}
+            <div class="newsBox">
+                <div class="newsHeader">{news.header}</div>
+                <div class="newsContent">
+                    <h4>{news.title}</h4>
+                    <p>{news.content}</p>
+                    <button>{news.buttonText}</button>
+                </div>
+            </div>
+        {/each}
+    </div>
 </main>
