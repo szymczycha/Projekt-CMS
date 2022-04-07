@@ -19,7 +19,7 @@ def logIn():
     print(req)
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM users WHERE username={req.username} AND password={req.password}""")
+    myCursor.execute(f"""SELECT * FROM users WHERE username="{req["username"]}" AND password="{req["password"]}" """)
     results = myCursor.fetchall()
     myConnection.close()
     print(results)
