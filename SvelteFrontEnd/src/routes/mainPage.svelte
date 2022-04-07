@@ -89,6 +89,7 @@
         document.getElementById("userType").innerText =
             "Hi " +
             (sessionStorage.getItem("userType") ?? "unregisterred user");
+        console.log(sessionStorage.getItem("loggedIn"));
     };
 </script>
 
@@ -97,8 +98,19 @@
         <div>Icon</div>
         <div id="userType" />
         <div>
-            <a href="/#/logInPage" id="loginBtn">Log In</a>
-            <a href="/#/registerPage" id="registerBtn">Register</a>
+            {#if sessionStorage.getItem("loggedIn") != "true"}
+                <a href="/#/logInPage" id="loginBtn">Log In</a>
+                <a href="/#/registerPage" id="registerBtn">Register</a>
+            {:else}
+                <button
+                    id="logOutBtn"
+                    on:click={() => {
+                        sessionStorage.setItem("loggedIn", null);
+                        sessionStorage.setItem("userType", null);
+                        window.location.reload();
+                    }}>Log Out</button
+                >
+            {/if}
         </div>
     </nav>
 </header>
