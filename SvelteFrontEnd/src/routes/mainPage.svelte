@@ -72,6 +72,22 @@
         },
     ];
 
+    let headerData = [
+        "Home",
+        "Features",
+        "Pricing",
+        "FAQs",
+        "About"
+    ]
+
+    let footerData = [
+        "Home",
+        "Features",
+        "Pricing",
+        "FAQs",
+        "About"
+    ]
+
     let slideIndex = 1;
     let slideInterval;
 
@@ -124,9 +140,14 @@
 
 <header>
     <nav>
-        <img id="headerIcon" src="favicon.png" alt="icon" />
+        <div id="headerContent">
+            <img id="headerIcon" src="favicon.png" alt="icon" />
+            {#each headerData as headerItem}
+                <p>{headerItem}</p>
+            {/each}
+        </div>
         <div id="userType" />
-        <div>
+        <div id="loginBtns">
             {#if sessionStorage.getItem("loggedIn") != "true"}
                 <a
                     href="/#/logInPage"
@@ -224,5 +245,16 @@
                 <img class="cardImg" src={card.imageURL} alt={card.imageURL} />
             </div>
         {/each}
+        <hr/>
     </div>
 </main>
+
+<footer>
+    <div id="footerContent">
+    {#each footerData as footerItem}
+        <p>{footerItem}</p>
+    {/each}
+    </div>
+    <hr style="width:100%;" />
+    &copy; 2022 Company, Inc.
+</footer>

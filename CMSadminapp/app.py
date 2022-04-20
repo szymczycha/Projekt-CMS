@@ -28,7 +28,7 @@ def deleteSliderItem(title):
     myConnection.close()
     onLoggedIn()
 
-def editSliderItem(imageUrl, title, description, oldTitle):
+def editSliderItem(imageUrl, title, description, interval, oldTitle):
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT * FROM sliderItems WHERE title="{oldTitle}" """)
@@ -40,11 +40,11 @@ def editSliderItem(imageUrl, title, description, oldTitle):
         return
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""UPDATE sliderItems SET imageUrl="{imageUrl}", title="{title}", description="{description}" WHERE title="{oldTitle}" """)
+    myCursor.execute(f"""UPDATE sliderItems SET imageUrl="{imageUrl}", title="{title}", description="{description}", interval="{interval}" WHERE title="{oldTitle}" """)
     myConnection.commit()
     myConnection.close()
     onLoggedIn()
-def addSliderItem(imageUrl, title, description):
+def addSliderItem(imageUrl, title, description, interval):
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT * FROM sliderItems WHERE title="{title}" """)
@@ -56,7 +56,7 @@ def addSliderItem(imageUrl, title, description):
         return
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""INSERT INTO sliderItems (imageUrl, title, description) VALUES ("{imageUrl}", "{title}", "{description}")""")
+    myCursor.execute(f"""INSERT INTO sliderItems (imageUrl, title, description, interval) VALUES ("{imageUrl}", "{title}", "{description}", "{interval}")""")
     myConnection.commit()
     myConnection.close()
     top.destroy()
@@ -93,6 +93,10 @@ def showSliderItemForm(title, mode):
     descriptionEdit = Entry(top)
     descriptionEdit.grid(row=3, column=1)
 
+    Label(top, text="Interval: ").grid(row=4, column=0)
+    intervalEdit = Spinbox(top, from_=0, to=100000)
+    intervalEdit.grid(row=4, column=1)
+
     if mode == "edit":
         myConnection = sqlite3.connect('CMS.db')
         myCursor = myConnection.cursor()
@@ -109,9 +113,9 @@ def showSliderItemForm(title, mode):
         descriptionEdit.delete(0,END)
         descriptionEdit.insert(0,results[0][2])
     if mode == "edit":
-        Button(top, text="Edit", command=lambda: editSliderItem(imgUrlEdit.get(), titleEdit.get(), descriptionEdit.get(), title)).grid(row=5, column=1)
+        Button(top, text="Edit", command=lambda: editSliderItem(imgUrlEdit.get(), titleEdit.get(), descriptionEdit.get(), intervalEdit.get(), title)).grid(row=5, column=1)
     if mode == "add":
-        Button(top, text="Add", command=lambda: addSliderItem(imgUrlEdit.get(), titleEdit.get(), descriptionEdit.get())).grid(row=5, column=1)
+        Button(top, text="Add", command=lambda: addSliderItem(imgUrlEdit.get(), titleEdit.get(), descriptionEdit.get(), intervalEdit.get())).grid(row=5, column=1)
 
 
 def deleteNews(title):
