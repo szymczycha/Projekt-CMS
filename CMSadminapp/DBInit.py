@@ -35,6 +35,15 @@ myCursor.execute("""CREATE TABLE IF NOT EXISTS contentCards(
             imageUrl text,
             isImageOnLeftSide boolean
             )""")
+
+myCursor.execute("""CREATE TABLE IF NOT EXISTS headerItems(
+            item text
+            )""")
+
+myCursor.execute("""CREATE TABLE IF NOT EXISTS footerItems(
+            item text
+            )""")
+
 # zapisywanie zmian w bazie
 myConnection.commit()
 
