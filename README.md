@@ -22,3 +22,9 @@
 - content
 - imageURL
 - isImageOnLeftSide
+
+5. headerItems
+- item
+
+6. footerItems
+- item
