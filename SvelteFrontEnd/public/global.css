@@ -454,3 +454,48 @@ header a:hover {
 .hidden {
   display: none;
 }
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+/* editpage */
+#editNav {
+  height: 50px;
+  padding: 0;
+}
+
+#editNav>div {
+  height: 100%;
+  user-select: none;
+}
+
+#editNav>div:hover {
+  background-color: #aaa;
+  transition: 0.5s;
+}
+
+.selectedPage {
+  background-color: #aaa;
+}
+
+#editMain {
+  width: 100%;
+  height: calc(100% - 50px);
+  flex-direction: column;
+}
+pre{
+  background-color: #ccc;
+  color: black;
+  padding: 20px;
+  border: 3px solid black;
+}
+.editPageButton{
+  background-color: #aaa;
+  color: black;
+  padding: 20px;
+  border-radius: 2px;
+}
