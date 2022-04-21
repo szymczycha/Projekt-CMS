@@ -179,6 +179,13 @@
                         window.location.reload();
                     }}>Log Out</button
                 >
+                <a
+                    href="/#/editPage"
+                    id="editPageBtn"
+                    on:click={() => {
+                        clearInterval(slideInterval);
+                    }}>Edit Page</a
+                >
             {/if}
         </div>
     </nav>
