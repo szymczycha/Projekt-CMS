@@ -1,6 +1,4 @@
 <script>
-    import { afterUpdate } from "svelte";
-
     let mainPageData;
     let sliderData;
     let newsData;
