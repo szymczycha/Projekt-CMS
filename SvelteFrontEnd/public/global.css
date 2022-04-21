@@ -461,9 +461,11 @@ header a:hover {
   justify-content: center;
 
 }
-.flexDirCol{
+
+.flexDirCol {
   flex-direction: column;
 }
+
 /* editpage */
 #editNav {
   height: 50px;
@@ -486,47 +488,58 @@ header a:hover {
 
 #editMain {
   width: 100%;
-  height: calc(100% - 50px);
+  min-height: calc(100% - 50px);
   flex-direction: column;
 }
-pre{
+
+pre {
+  max-width: 60%;
   background-color: #ccc;
   color: black;
   padding: 20px;
   border: 3px solid black;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  align-self: center;
 }
-.editPageButton{
+
+.editPageButton {
   background-color: #aaa;
   color: black;
   padding: 20px;
   border-radius: 2px;
 }
-.editPageForm{
-  
+
+.editPageForm {
+
   background-color: #555;
   color: white;
   padding: 20px;
   border-radius: 2px;
 }
-.flexSpaceBetween{
+
+.flexSpaceBetween {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
 }
-.flexSpaceBetween input{
+
+.flexSpaceBetween input {
   margin: 0;
   margin-left: 5px;
 }
-.editForms{
+
+.editForms {
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-.editPageSaveButton{
+
+.editPageSaveButton {
   background-color: #aaa;
   color: black;
   padding: 5px;

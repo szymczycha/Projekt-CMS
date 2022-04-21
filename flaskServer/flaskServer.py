@@ -245,5 +245,12 @@ def getEditPageData():
     res = make_response(jsonify(data), 200)
     return res
 
+
+@app.route("/editData", methods=["POST", "GET"])
+def editData():
+    data = request.get_json()
+    print(data)
+    return data
+
 if __name__ == "__main__":
     app.run(debug=True)
