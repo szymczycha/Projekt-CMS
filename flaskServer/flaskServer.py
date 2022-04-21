@@ -113,7 +113,7 @@ def getMainPageData():
             "imageURL": contentCard[3],
             "isImageOnLeftSide": contentCard[4],
         })
-    data["news"] = newsArray
+    data["contentCards"] = contentCardsArray
 
     print(data)
 

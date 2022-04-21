@@ -1,13 +1,20 @@
 <script>
-    let mainPageData = getMainPageData();
+import { afterUpdate } from "svelte";
+
+
+    let mainPageData;
+    let sliderData;
+    let newsData;
+    let contentCardsData;
+    let headerData;
+    let footerData;
     async function getMainPageData(){
-        await fetch('/getMainPageData')
-            .then(response => response.json())
-            .then(data => {
-                mainPageData = data;
-                console.log(mainPageData);
-            });
-        if(mainPageData.sliderItems == undefined){
+        const res = await fetch('/getMainPageData')
+        mainPageData = await res.json()
+        console.log(mainPageData)
+
+        if(mainPageData.sliderItems.length == 0){
+            console.log("h")
             sliderData = [
                 {
                     imageUrl:
@@ -32,7 +39,7 @@
             ];
         }
         
-        if(mainPageData.news == undefined){
+        if(mainPageData.news.length == 0){
             newsData = [
                 {
                     header: "News 1",
@@ -55,7 +62,7 @@
             ];
         }
         
-        if(mainPageData.sliderItems == contentCards){
+        if(mainPageData.sliderItems.length == 0){
             contentCardsData = [
                 {
                     title: "Page content 1",
@@ -103,11 +110,6 @@
             "About"
         ]
     }
-    let sliderData;
-    let newsData;
-    let contentCardsData;
-    let headerData;
-    let footerData;
             
     let slideIndex = 1;
     let slideInterval;
@@ -125,6 +127,7 @@
     }
 
     function showSlides(n) {
+        console.log(sliderData)
         let i;
         let slides = document.getElementsByClassName("mySlides");
         //console.log(slides)
@@ -151,7 +154,7 @@
         }, sliderData[slideIndex - 1].interval);
     }
 
-    window.onload = () => {
+    let pageLoaded = () => {
         showSlides(slideIndex);
         document.getElementById("userType").innerText =
             "Hi " + (sessionStorage.getItem("userType") ?? "unregistered user");
@@ -159,7 +162,7 @@
     };
 </script>
 
-{#await mainPageData}
+{#await getMainPageData()}
     Loafing page :v
 {:then}
 <header>
