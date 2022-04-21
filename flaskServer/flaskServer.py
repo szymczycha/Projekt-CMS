@@ -94,7 +94,7 @@ def getMainPageData():
             "description": sliderItem[2],
             "interval": sliderItem[3],
         })
-    data["sliderItems"] = newsArray
+    data["sliderItems"] = sliderItemsArray
 
 
 

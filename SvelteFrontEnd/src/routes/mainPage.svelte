@@ -1,6 +1,5 @@
 <script>
-import { afterUpdate } from "svelte";
-
+    import { afterUpdate } from "svelte";
 
     let mainPageData;
     let sliderData;
@@ -8,13 +7,13 @@ import { afterUpdate } from "svelte";
     let contentCardsData;
     let headerData;
     let footerData;
-    async function getMainPageData(){
-        const res = await fetch('/getMainPageData')
-        mainPageData = await res.json()
-        console.log(mainPageData)
+    async function getMainPageData() {
+        const res = await fetch("/getMainPageData");
+        mainPageData = await res.json();
+        console.log(mainPageData);
 
-        if(mainPageData.sliderItems.length == 0){
-            console.log("h")
+        if (mainPageData.sliderItems.length == 0) {
+            console.log("h");
             sliderData = [
                 {
                     imageUrl:
@@ -24,7 +23,8 @@ import { afterUpdate } from "svelte";
                     interval: 2000,
                 },
                 {
-                    imageUrl: "https://c.tenor.com/TTfEcL3R8ToAAAAC/monkeys.gif",
+                    imageUrl:
+                        "https://c.tenor.com/TTfEcL3R8ToAAAAC/monkeys.gif",
                     title: "Monke2",
                     description: "where bananan",
                     interval: 5000,
@@ -37,9 +37,9 @@ import { afterUpdate } from "svelte";
                     interval: 10000,
                 },
             ];
-        }
-        
-        if(mainPageData.news.length == 0){
+        } else sliderData = mainPageData.sliderItems;
+
+        if (mainPageData.news.length == 0) {
             newsData = [
                 {
                     header: "News 1",
@@ -60,60 +60,48 @@ import { afterUpdate } from "svelte";
                     buttonText: "[Object[Object]]",
                 },
             ];
-        }
-        
-        if(mainPageData.sliderItems.length == 0){
+        } else newsData = mainPageData.news;
+
+        if (mainPageData.contentCards.length == 0) {
             contentCardsData = [
                 {
                     title: "Page content 1",
                     subtitle: "This is sub tile",
                     content:
-                    "is going to b epic card yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                        "is going to b epic card yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
                     imageURL:
-                    "https://media.discordapp.net/attachments/640672443710701568/901173807841153084/image0-1.png?width=633&height=676",
+                        "https://media.discordapp.net/attachments/640672443710701568/901173807841153084/image0-1.png?width=633&height=676",
                     isImageOnLeftSide: false,
                 },
                 {
                     title: "Page contet 2",
                     subtitle: "This sub is titl",
                     content:
-                    "<scripr> while(true) program.hack(you); print(':)');<scirp/>",
-                        imageURL:
+                        "<scripr> while(true) program.hack(you); print(':)');<scirp/>",
+                    imageURL:
                         "https://media.discordapp.net/attachments/741945274901200897/885139560135295006/image0-105.gif",
-                        isImageOnLeftSide: true,
+                    isImageOnLeftSide: true,
                 },
                 {
                     title: "Page content e",
                     subtitle: "Telk is soup",
                     content:
-                    "mik uderzył psa to mu powiedziałem co ty robisz nie bij psa a on mi mów nie udzerzyłem patrz to jest uderzenie i mnie uderzył w kolano to ja go uderzyłem w czaszke z pięsci i mamie się to niespodobało ",
+                        "mik uderzył psa to mu powiedziałem co ty robisz nie bij psa a on mi mów nie udzerzyłem patrz to jest uderzenie i mnie uderzył w kolano to ja go uderzyłem w czaszke z pięsci i mamie się to niespodobało ",
                     imageURL:
-                    "https://media.discordapp.net/attachments/659630509894271001/793958618377748492/image0-37.gif",
+                        "https://media.discordapp.net/attachments/659630509894271001/793958618377748492/image0-37.gif",
                     isImageOnLeftSide: false,
                 },
             ];
-        }
-        
-        headerData = [
-            "Home",
-            "Features",
-            "Pricing",
-            "FAQs",
-            "About"
-        ]
-        
-        footerData = [
-            "Home",
-            "Features",
-            "Pricing",
-            "FAQs",
-            "About"
-        ]
+        } else contentCardsData = mainPageData.contentCards;
+
+        headerData = ["Home", "Features", "Pricing", "FAQs", "About"];
+
+        footerData = ["Home", "Features", "Pricing", "FAQs", "About"];
     }
-            
+
     let slideIndex = 1;
     let slideInterval;
-            
+
     // Next/previous controls
     function plusSlides(n) {
         clearInterval(slideInterval);
@@ -127,7 +115,6 @@ import { afterUpdate } from "svelte";
     }
 
     function showSlides(n) {
-        console.log(sliderData)
         let i;
         let slides = document.getElementsByClassName("mySlides");
         //console.log(slides)
@@ -155,6 +142,7 @@ import { afterUpdate } from "svelte";
     }
 
     let pageLoaded = () => {
+        console.log("loaded");
         showSlides(slideIndex);
         document.getElementById("userType").innerText =
             "Hi " + (sessionStorage.getItem("userType") ?? "unregistered user");
@@ -165,131 +153,138 @@ import { afterUpdate } from "svelte";
 {#await getMainPageData()}
     Loafing page :v
 {:then}
-<header>
-    <nav>
-        <div id="headerContent">
-            <img id="headerIcon" src="favicon.png" alt="icon" />
-            {#each headerData as headerItem}
-                <p>{headerItem}</p>
-            {/each}
-        </div>
-        <div id="userType" />
-        <div id="loginBtns">
-            {#if sessionStorage.getItem("loggedIn") != "true"}
-                <a
-                    href="/#/logInPage"
-                    id="loginBtn"
-                    on:click={() => {
-                        clearInterval(slideInterval);
-                    }}>Log In</a
-                >
-                <a
-                    href="/#/registerPage"
-                    id="registerBtn"
-                    on:click={() => {
-                        clearInterval(slideInterval);
-                    }}>Register</a
-                >
-            {:else}
-                <button
-                    id="logOutBtn"
-                    on:click={() => {
-                        sessionStorage.setItem("loggedIn", "");
-                        sessionStorage.setItem("userType", "unregistered user");
-                        window.location.reload();
-                    }}>Log Out</button
-                >
-                <a
-                    href="/#/editPage"
-                    id="editPageBtn"
-                    on:click={() => {
-                        clearInterval(slideInterval);
-                    }}>Edit Page</a
-                >
-            {/if}
-        </div>
-    </nav>
-</header>
+    <header>
+        <nav>
+            <div id="headerContent">
+                <img id="headerIcon" src="favicon.png" alt="icon" />
+                {#each headerData as headerItem}
+                    <p>{headerItem}</p>
+                {/each}
+            </div>
+            <div id="userType" />
+            <div id="loginBtns">
+                {#if sessionStorage.getItem("loggedIn") != "true"}
+                    <a
+                        href="/#/logInPage"
+                        id="loginBtn"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Log In</a
+                    >
+                    <a
+                        href="/#/registerPage"
+                        id="registerBtn"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Register</a
+                    >
+                {:else}
+                    <button
+                        id="logOutBtn"
+                        on:click={() => {
+                            sessionStorage.setItem("loggedIn", "");
+                            sessionStorage.setItem(
+                                "userType",
+                                "unregistered user"
+                            );
+                            window.location.reload();
+                        }}>Log Out</button
+                    >
+                    <a
+                        href="/#/editPage"
+                        id="editPageBtn"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Edit Page</a
+                    >
+                {/if}
+            </div>
+        </nav>
+    </header>
 
-<main>
-    <div class="slideshow-container">
-        <!-- Full-width images with number and caption text -->
+    <main>
+        <div class="slideshow-container">
+            <!-- Full-width images with number and caption text -->
 
-        {#each sliderData as slide, i}
-            <div class="mySlides fade">
-                <div class="numbertext">{i + 1} / {sliderData.length}</div>
-                <img src={slide.imageUrl} alt="slider" />
-                <div class="sliderContent">
-                    <div class="text">{slide.title}</div>
-                    <div class="subtext">{slide.description}</div>
-                    <div style="text-align:center">
-                        {#each sliderData as slide, i}
-                            <span
-                                class="dot"
-                                on:click={() => currentSlide(i + 1)}
-                            />
-                        {/each}
+            {#each sliderData as slide, i}
+                <div class="mySlides fade">
+                    <div class="numbertext">{i + 1} / {sliderData.length}</div>
+                    <img src={slide.imageUrl} alt="slider" />
+                    <div class="sliderContent">
+                        <div class="text">{slide.title}</div>
+                        <div class="subtext">{slide.description}</div>
+                        <div style="text-align:center">
+                            {#each sliderData as slide, i}
+                                <span
+                                    class="dot"
+                                    on:click={() => currentSlide(i + 1)}
+                                />
+                            {/each}
+                        </div>
                     </div>
                 </div>
-            </div>
-        {/each}
+            {/each}
 
-        <!-- Next and previous buttons -->
-        <button id="prev" class="prev" on:click={() => plusSlides(-1)}
-            >&#10094;</button
-        >
-        <button id="next" class="next" on:click={() => plusSlides(1)}
-            >&#10095;</button
-        >
-    </div>
-    <br />
-
-    <div id="news-container">
-        {#each newsData as news}
-            <div class="newsBox">
-                <div class="newsHeader">{news.header}</div>
-                <div class="newsContent">
-                    <h4>{news.title}</h4>
-                    <p>{news.content}</p>
-                    <button>{news.buttonText}</button>
-                </div>
-            </div>
-        {/each}
-    </div>
-
-    <div id="contentCards-container">
-        {#each contentCardsData as card}
-            <hr />
-            <div
-                class="card"
-                style="flex-direction:{card.isImageOnLeftSide
-                    ? 'row-reverse'
-                    : 'row'};"
+            <!-- Next and previous buttons -->
+            <button id="prev" class="prev" on:click={() => plusSlides(-1)}
+                >&#10094;</button
             >
-                <div
-                    class="cardContent"
-                    style="text-align:{card.isImageOnLeftSide
-                        ? 'right'
-                        : 'left'};"
-                >
-                    <h4>{card.title}</h4>
-                    <h5>{card.subtitle}</h5>
-                    <p>{card.content}</p>
-                </div>
-                <img class="cardImg" src={card.imageURL} alt={card.imageURL} />
-            </div>
-        {/each}
-        <hr/>
-    </div>
-</main>
+            <button id="next" class="next" on:click={() => plusSlides(1)}
+                >&#10095;</button
+            >
+        </div>
+        <br />
 
-<footer>
-    <div id="footerContent">
-    {#each footerData as footerItem}
-        <p>{footerItem}</p>
-    {/each}
-    </div>
-    <hr style="width:100%;" />
-    &copy; 2022 Company, Inc.
-</footer>
+        <div id="news-container">
+            {#each newsData as news}
+                <div class="newsBox">
+                    <div class="newsHeader">{news.header}</div>
+                    <div class="newsContent">
+                        <h4>{news.title}</h4>
+                        <p>{news.content}</p>
+                        <button>{news.buttonText}</button>
+                    </div>
+                </div>
+            {/each}
+        </div>
+
+        <div id="contentCards-container">
+            {#each contentCardsData as card}
+                <hr />
+                <div
+                    class="card"
+                    style="flex-direction:{card.isImageOnLeftSide
+                        ? 'row-reverse'
+                        : 'row'};"
+                >
+                    <div
+                        class="cardContent"
+                        style="text-align:{card.isImageOnLeftSide
+                            ? 'right'
+                            : 'left'};"
+                    >
+                        <h4>{card.title}</h4>
+                        <h5>{card.subtitle}</h5>
+                        <p>{card.content}</p>
+                    </div>
+                    <img
+                        class="cardImg"
+                        src={card.imageURL}
+                        alt={card.imageURL}
+                    />
+                </div>
+            {/each}
+            <hr />
+        </div>
+    </main>
+
+    <footer use:pageLoaded>
+        <div id="footerContent">
+            {#each footerData as footerItem}
+                <p>{footerItem}</p>
+            {/each}
+        </div>
+        <hr style="width:100%;" />
+        &copy; 2022 Company, Inc.
+    </footer>
 {/await}
