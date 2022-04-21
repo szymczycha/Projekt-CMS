@@ -1,4 +1,5 @@
 <script>
+    let registerStatus = ""
     async function register() {
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
@@ -36,6 +37,7 @@
             .then((response) => response.json())
             .then((data) => {
                 console.log(data, data.loggedIn);
+                registerStatus = data.message
             });
     }
 </script>
@@ -47,9 +49,10 @@
         <input id="username" name="username" type="text" />
         <label for="password">Password</label>
         <input id="password" name="password" type="password" />
-        <div style="display: flex; justify-content: space-evenly; width:100%;">
-            <input type="submit" value="Register" on:click={register} />
-            <a href="/#/logInPage" class="aAsButton">Log In</a>
+        <div id="loginPageBtns">
+            <input type="submit" class="aAsButton" value="Register" on:click={register} />
+            <a href="/#/logInPage" class="secondaryBtn">Log In</a>
         </div>
+        <p style="width:90%; text-align:center; text-decoration:underline;" class="{registerStatus == '' ? "hidden" : ""}">{registerStatus}</p>
     </div>
 </div>
