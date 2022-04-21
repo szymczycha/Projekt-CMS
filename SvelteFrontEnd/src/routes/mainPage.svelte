@@ -1,4 +1,11 @@
 <script>
+    let mainPageData;
+    fetch('/getMainPageData')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            mainPageData = data;
+        });
     let sliderData = [
         {
             imageUrl:

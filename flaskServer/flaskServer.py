@@ -59,5 +59,42 @@ def register():
         message = "A user with this username already exists"
     res = make_response(jsonify({"message": message}), 200)
     return res
+@app.route("/getMainPageData", methods=["POST","GET"])
+def getMainPageData():
+    data = {}
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM news """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+
+    data["news"]
+
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM news """)
+    data["news"] = myCursor.fetchall()
+    myConnection.close()
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM sliderItems """)
+    data["sliderItems"] = myCursor.fetchall()
+    myConnection.close()
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM contentCards """)
+    data["contentCards"] = myCursor.fetchall()
+    myConnection.close()
+
+    print(data)
+
+    res = make_response(jsonify(data), 200)
+    return res
+
 if __name__ == "__main__":
     app.run(debug=True)
