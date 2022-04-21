@@ -107,8 +107,8 @@ nav {
   text-align: center;
 }
 
-nav div{
-  width:33%;
+nav div {
+  width: 33%;
 }
 
 #headerIcon {
@@ -117,16 +117,17 @@ nav div{
   margin-right: 10px;
 }
 
-#headerContent, #footerContent{
+#headerContent,
+#footerContent {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
 
-footer{
-  width:80%;
+footer {
+  width: 80%;
   margin-left: 10%;
   display: flex;
   flex-direction: column;
@@ -134,37 +135,40 @@ footer{
   padding-bottom: 20px;
 }
 
-#loginPageBtns{
+#loginPageBtns {
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width:100%;
+  width: 100%;
 }
 
-.secondaryBtn, .secondaryBtn:visited{
+.secondaryBtn,
+.secondaryBtn:visited {
   color: #888;
   text-decoration: underline;
 }
 
-.secondaryBtn:hover{
+.secondaryBtn:hover {
   color: #777;
 }
 
-#loginPageBtns .aAsButton{
-  width:50%;
+#loginPageBtns .aAsButton {
+  width: 50%;
 }
 
-#headerContent p{
-  margin:0 10px;
+#headerContent p {
+  margin: 0 10px;
 }
 
-#loginBtns{
+#loginBtns {
   text-align: right;
 }
 
-header button, header a, header a:visited {
+header button,
+header a,
+header a:visited {
   border: 1px solid var(--mainBtnColor);
   border-radius: 5px;
   padding: 2px 10px;
@@ -175,7 +179,8 @@ header button, header a, header a:visited {
   transition: 0.2s all;
 }
 
-header button:hover, header a:hover{
+header button:hover,
+header a:hover {
   box-shadow: 0 0 10px var(--mainBtnColor);
   text-decoration: none;
 }
@@ -190,10 +195,10 @@ header button:hover, header a:hover{
 
 #logOutBtn {
   --mainBtnColor: red;
-  
+
 }
 
-#editPageBtn{
+#editPageBtn {
   --mainBtnColor: rgb(72, 187, 207);
 }
 
@@ -209,7 +214,7 @@ header button:hover, header a:hover{
   cursor: pointer;
 }
 
-.aAsButton:hover{
+.aAsButton:hover {
   color: #bbb;
   border-color: #bbb;
 }
@@ -361,6 +366,7 @@ header button:hover, header a:hover{
 
 .newsBox {
   width: 30%;
+  min-width: 250px;
   background-color: #ddd;
   padding: 0;
   margin: 10px;
@@ -406,6 +412,7 @@ header button:hover, header a:hover{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .card h4,
@@ -424,15 +431,26 @@ header button:hover, header a:hover{
 }
 
 .cardImg {
-  width: 500px;
-  height: 500px;
+  max-width: 500px;
+  min-width: 300px;
+  max-height: 500px;
+  width: 50%;
+  height: 50%;
 }
 
 .cardContent {
-  width: calc(100% - 500px);
+  width: 50%;
+  min-width: 300px;
   padding: 10px;
 }
 
-.hidden{
+.cardContent p {
+  word-wrap: break-word;
+  width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.hidden {
   display: none;
 }
