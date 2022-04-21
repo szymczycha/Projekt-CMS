@@ -96,8 +96,6 @@ def getMainPageData():
         })
     data["sliderItems"] = sliderItemsArray
 
-
-
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT * FROM contentCards """)
@@ -114,6 +112,32 @@ def getMainPageData():
             "isImageOnLeftSide": True if contentCard[4] == "True" else False,
         })
     data["contentCards"] = contentCardsArray
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM headerItems """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    headerItemsArray = []
+    for headerItem in result:
+        headerItemsArray.append({
+            "item": headerItem[0],
+        })
+    data["headerItems"] = headerItemsArray
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM footerItems """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    footerItemsArray = []
+    for footerItem in result:
+        footerItemsArray.append({
+            "item": footerItem[0],
+        })
+    data["footerItems"] = footerItemsArray
 
     print(data)
 
