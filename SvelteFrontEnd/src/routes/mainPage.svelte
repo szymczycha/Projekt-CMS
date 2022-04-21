@@ -1,103 +1,117 @@
 <script>
-    let mainPageData;
-    fetch('/getMainPageData')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            mainPageData = data;
-        });
-    let sliderData = [
-        {
-            imageUrl:
-                "https://thumbs.gfycat.com/MiniatureGiddyKusimanse-max-1mb.gif",
-            title: "Monke",
-            description: "eet bananan",
-            interval: 2000,
-        },
-        {
-            imageUrl: "https://c.tenor.com/TTfEcL3R8ToAAAAC/monkeys.gif",
-            title: "Monke2",
-            description: "where bananan",
-            interval: 5000,
-        },
-        {
-            imageUrl:
-                "https://media.discordapp.net/attachments/683372664546525228/911289580148367400/gomus.gif",
-            title: "gomus))",
-            description: "my beloverd",
-            interval: 10000,
-        },
-    ];
-    let newsData = [
-        {
-            header: "News 1",
-            title: "Holy hsit guise",
-            content: "lorem ipus",
-            buttonText: "going",
-        },
-        {
-            header: "News dwa",
-            title: "Sample tect",
-            content: "lorm imbus",
-            buttonText: "button.text",
-        },
-        {
-            header: "News 3",
-            title: "))))))))",
-            content: "l'oreal igloo",
-            buttonText: "[Object[Object]]",
-        },
-    ];
-
-    let contentCardsData = [
-        {
-            title: "Page content 1",
-            subtitle: "This is sub tile",
-            content:
-                "is going to b epic card yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-            imageURL:
-                "https://media.discordapp.net/attachments/640672443710701568/901173807841153084/image0-1.png?width=633&height=676",
-            isImageOnLeftSide: false,
-        },
-        {
-            title: "Page contet 2",
-            subtitle: "This sub is titl",
-            content:
-                "<scripr> while(true) program.hack(you); print(':)');<scirp/>",
-            imageURL:
-                "https://media.discordapp.net/attachments/741945274901200897/885139560135295006/image0-105.gif",
-            isImageOnLeftSide: true,
-        },
-        {
-            title: "Page content e",
-            subtitle: "Telk is soup",
-            content:
-                "mik uderzył psa to mu powiedziałem co ty robisz nie bij psa a on mi mów nie udzerzyłem patrz to jest uderzenie i mnie uderzył w kolano to ja go uderzyłem w czaszke z pięsci i mamie się to niespodobało ",
-            imageURL:
-                "https://media.discordapp.net/attachments/659630509894271001/793958618377748492/image0-37.gif",
-            isImageOnLeftSide: false,
-        },
-    ];
-
-    let headerData = [
-        "Home",
-        "Features",
-        "Pricing",
-        "FAQs",
-        "About"
-    ]
-
-    let footerData = [
-        "Home",
-        "Features",
-        "Pricing",
-        "FAQs",
-        "About"
-    ]
-
+    let mainPageData = getMainPageData();
+    async function getMainPageData(){
+        await fetch('/getMainPageData')
+            .then(response => response.json())
+            .then(data => {
+                mainPageData = data;
+                console.log(mainPageData);
+            });
+        if(mainPageData.sliderItems == undefined){
+            sliderData = [
+                {
+                    imageUrl:
+                        "https://thumbs.gfycat.com/MiniatureGiddyKusimanse-max-1mb.gif",
+                    title: "Monke",
+                    description: "eet bananan",
+                    interval: 2000,
+                },
+                {
+                    imageUrl: "https://c.tenor.com/TTfEcL3R8ToAAAAC/monkeys.gif",
+                    title: "Monke2",
+                    description: "where bananan",
+                    interval: 5000,
+                },
+                {
+                    imageUrl:
+                        "https://media.discordapp.net/attachments/683372664546525228/911289580148367400/gomus.gif",
+                    title: "gomus))",
+                    description: "my beloverd",
+                    interval: 10000,
+                },
+            ];
+        }
+        
+        if(mainPageData.news == undefined){
+            newsData = [
+                {
+                    header: "News 1",
+                    title: "Holy hsit guise",
+                    content: "lorem ipus",
+                    buttonText: "going",
+                },
+                {
+                    header: "News dwa",
+                    title: "Sample tect",
+                    content: "lorm imbus",
+                    buttonText: "button.text",
+                },
+                {
+                    header: "News 3",
+                    title: "))))))))",
+                    content: "l'oreal igloo",
+                    buttonText: "[Object[Object]]",
+                },
+            ];
+        }
+        
+        if(mainPageData.sliderItems == contentCards){
+            contentCardsData = [
+                {
+                    title: "Page content 1",
+                    subtitle: "This is sub tile",
+                    content:
+                    "is going to b epic card yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                    imageURL:
+                    "https://media.discordapp.net/attachments/640672443710701568/901173807841153084/image0-1.png?width=633&height=676",
+                    isImageOnLeftSide: false,
+                },
+                {
+                    title: "Page contet 2",
+                    subtitle: "This sub is titl",
+                    content:
+                    "<scripr> while(true) program.hack(you); print(':)');<scirp/>",
+                        imageURL:
+                        "https://media.discordapp.net/attachments/741945274901200897/885139560135295006/image0-105.gif",
+                        isImageOnLeftSide: true,
+                },
+                {
+                    title: "Page content e",
+                    subtitle: "Telk is soup",
+                    content:
+                    "mik uderzył psa to mu powiedziałem co ty robisz nie bij psa a on mi mów nie udzerzyłem patrz to jest uderzenie i mnie uderzył w kolano to ja go uderzyłem w czaszke z pięsci i mamie się to niespodobało ",
+                    imageURL:
+                    "https://media.discordapp.net/attachments/659630509894271001/793958618377748492/image0-37.gif",
+                    isImageOnLeftSide: false,
+                },
+            ];
+        }
+        
+        headerData = [
+            "Home",
+            "Features",
+            "Pricing",
+            "FAQs",
+            "About"
+        ]
+        
+        footerData = [
+            "Home",
+            "Features",
+            "Pricing",
+            "FAQs",
+            "About"
+        ]
+    }
+    let sliderData;
+    let newsData;
+    let contentCardsData;
+    let headerData;
+    let footerData;
+            
     let slideIndex = 1;
     let slideInterval;
-
+            
     // Next/previous controls
     function plusSlides(n) {
         clearInterval(slideInterval);
@@ -145,6 +159,9 @@
     };
 </script>
 
+{#await mainPageData}
+    Loafing page :v
+{:then}
 <header>
     <nav>
         <div id="headerContent">
@@ -272,3 +289,4 @@
     <hr style="width:100%;" />
     &copy; 2022 Company, Inc.
 </footer>
+{/await}
