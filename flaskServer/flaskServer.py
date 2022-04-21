@@ -69,27 +69,51 @@ def getMainPageData():
     result = myCursor.fetchall()
     myConnection.close()
     # news
+    newsArray = []
+    for newsItem in result:
+        newsArray.append({
+            "header": newsItem[0],
+            "title": newsItem[1],
+            "content": newsItem[2],
+            "buttonText": newsItem[3],
+        })
+    data["news"] = newsArray
 
-    data["news"]
-
-
-    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
-    myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM news """)
-    data["news"] = myCursor.fetchall()
-    myConnection.close()
 
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT * FROM sliderItems """)
-    data["sliderItems"] = myCursor.fetchall()
+    result = myCursor.fetchall()
     myConnection.close()
+    # news
+    sliderItemsArray = []
+    for sliderItem in result:
+        sliderItemsArray.append({
+            "imageUrl": sliderItem[0],
+            "title": sliderItem[1],
+            "description": sliderItem[2],
+            "interval": sliderItem[3],
+        })
+    data["sliderItems"] = newsArray
+
+
 
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT * FROM contentCards """)
-    data["contentCards"] = myCursor.fetchall()
+    result = myCursor.fetchall()
     myConnection.close()
+    # news
+    contentCardsArray = []
+    for contentCard in result:
+        contentCardsArray.append({
+            "title": contentCard[0],
+            "subtitle": contentCard[1],
+            "content": contentCard[2],
+            "imageURL": contentCard[3],
+            "isImageOnLeftSide": contentCard[4],
+        })
+    data["news"] = newsArray
 
     print(data)
 
