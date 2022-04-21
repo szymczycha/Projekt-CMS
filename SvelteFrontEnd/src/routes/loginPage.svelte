@@ -47,9 +47,9 @@
         <input id="username" name="username" type="text" />
         <label for="password">Password</label>
         <input id="password" name="password" type="password" />
-        <div style="display: flex; justify-content: space-evenly; width:100%;">
+        <div id="loginPageBtns">
             <button on:click={logIn} class="aAsButton">Log In</button>
-            <a href="/#/registerPage" class="aAsButton">Register</a>
+            <a href="/#/registerPage" class="secondaryBtn">Register</a>
         </div>
     </div>
 </div>
