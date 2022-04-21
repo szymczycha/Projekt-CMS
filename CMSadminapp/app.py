@@ -355,6 +355,201 @@ def showContentCardForm(title, mode):
 
 
 
+def deleteHeaderItem(item):
+
+    MsgBox = tkinter.messagebox.askquestion ('Delete header item?', 'Are you sure you want to delete this header item?', icon='warning')
+    if MsgBox == 'no':
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM headerItems WHERE item="{item}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="This header item does not exist!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""DELETE FROM headerItems WHERE item="{item}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+
+def editHeaderItem(item, oldItem):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM headerItems WHERE item="{oldItem}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="This header item does not exist!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""UPDATE headerItems SET item="{item}" WHERE item="{oldItem}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+def addHeaderItem(item):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM headerItems WHERE item="{item}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) > 0:
+        tkinter.messagebox.showerror(title="ERROR", message="This header item already exists!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""INSERT INTO headerItems (item) VALUES ("{item}")""")
+    myConnection.commit()
+    myConnection.close()
+    top.destroy()
+    onLoggedIn()
+def showHeaderItemForm(item, mode):
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM headerItems WHERE item="{item}" """)
+        results = myCursor.fetchall()
+        myConnection.commit()
+        myConnection.close()
+        if len(results) == 0:
+            print(item, results)
+            tkinter.messagebox.showerror(title="ERROR", message="This header item does not exist!")
+            return
+    global top
+    top = Toplevel(root, width=600, height=600)
+
+    if mode == "edit":
+        Label(top, text="Edit "+item).grid(row=0, column=1)
+    if mode == "add":
+        Label(top, text="Add").grid(row=0, column=1)
+
+    Label(top, text="Item: ").grid(row=1, column=0)
+    itemEdit = Entry(top)
+    itemEdit.grid(row=1, column=1)
+
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM headerItems WHERE item="{item}" """)
+        results = myCursor.fetchall()
+        print(results)
+        print(results[0][0])
+        myConnection.commit()
+        myConnection.close()
+        itemEdit.delete(0,END)
+        itemEdit.insert(0,results[0][0])
+    if mode == "edit":
+        Button(top, text="Edit", command=lambda: editHeaderItem(itemEdit.get(), item)).grid(row=2, column=1)
+    if mode == "add":
+        Button(top, text="Add", command=lambda: addHeaderItem(itemEdit.get())).grid(row=2, column=1)
+
+
+
+
+
+def deleteFooterItem(item):
+
+    MsgBox = tkinter.messagebox.askquestion ('Delete footer item?', 'Are you sure you want to delete this footer item?', icon='warning')
+    if MsgBox == 'no':
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM footerItems WHERE item="{item}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="This footer item does not exist!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""DELETE FROM footerItems WHERE item="{item}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+
+def editFooterItem(item, oldItem):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM footerItems WHERE item="{oldItem}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="This footer item does not exist!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""UPDATE footerItems SET item="{item}" WHERE item="{oldItem}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+def addFooterItem(item):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM footerItems WHERE item="{item}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) > 0:
+        tkinter.messagebox.showerror(title="ERROR", message="This footer item already exists!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""INSERT INTO footerItems (item) VALUES ("{item}")""")
+    myConnection.commit()
+    myConnection.close()
+    top.destroy()
+    onLoggedIn()
+def showFooterItemForm(item, mode):
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM footerItems WHERE item="{item}" """)
+        results = myCursor.fetchall()
+        myConnection.commit()
+        myConnection.close()
+        if len(results) == 0:
+            print(item, results)
+            tkinter.messagebox.showerror(title="ERROR", message="This footer item does not exist!")
+            return
+    global top
+    top = Toplevel(root, width=600, height=600)
+
+    if mode == "edit":
+        Label(top, text="Edit "+item).grid(row=0, column=1)
+    if mode == "add":
+        Label(top, text="Add").grid(row=0, column=1)
+
+    Label(top, text="Item: ").grid(row=1, column=0)
+    itemEdit = Entry(top)
+    itemEdit.grid(row=1, column=1)
+
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM footerItems WHERE item="{item}" """)
+        results = myCursor.fetchall()
+        print(results)
+        print(results[0][0])
+        myConnection.commit()
+        myConnection.close()
+        itemEdit.delete(0,END)
+        itemEdit.insert(0,results[0][0])
+    if mode == "edit":
+        Button(top, text="Edit", command=lambda: editFooterItem(itemEdit.get(), item)).grid(row=2, column=1)
+    if mode == "add":
+        Button(top, text="Add", command=lambda: addFooterItem(itemEdit.get())).grid(row=2, column=1)
+
+
+
+
 def editUser(username, password, usertype, oldUsername):
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
@@ -523,6 +718,34 @@ def onLoggedIn():
     Button(root, text="Edit", command=lambda: showContentCardForm(contentCards.get(), "edit")).grid(row=3, column=2)
     Button(root, text="Delete", command=lambda: deleteContentCard(contentCards.get())).grid(row=3, column=3)
     Button(root, text="Add", command=lambda: showContentCardForm(contentCards.get(), "add")).grid(row=3, column=4)
+
+    Label(root, text="Edit header items: ").grid(row=4, column=0)
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT item FROM headerItems""")
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    headerItems = ttk.Combobox(root)
+    headerItems["values"] = list(map(lambda x: x[0], results))
+    headerItems.grid(row=4, column=1)
+    Button(root, text="Edit", command=lambda: showHeaderItemForm(headerItems.get(), "edit")).grid(row=4, column=2)
+    Button(root, text="Delete", command=lambda: deleteHeaderItem(headerItems.get())).grid(row=4, column=3)
+    Button(root, text="Add", command=lambda: showHeaderItemForm(headerItems.get(), "add")).grid(row=4, column=4)
+
+    Label(root, text="Edit footer items: ").grid(row=5, column=0)
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT item FROM footerItems""")
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    footerItems = ttk.Combobox(root)
+    footerItems["values"] = list(map(lambda x: x[0], results))
+    footerItems.grid(row=5, column=1)
+    Button(root, text="Edit", command=lambda: showFooterItemForm(footerItems.get(), "edit")).grid(row=5, column=2)
+    Button(root, text="Delete", command=lambda: deleteFooterItem(footerItems.get())).grid(row=5, column=3)
+    Button(root, text="Add", command=lambda: showFooterItemForm(footerItems.get(), "add")).grid(row=5, column=4)
 
 def logIn():
     # tworzenie bazy lub połączenie z istniejącą bazą

@@ -1,6 +1,4 @@
 <script>
-    import { afterUpdate } from "svelte";
-
     let mainPageData;
     let sliderData;
     let newsData;
@@ -94,9 +92,25 @@
             ];
         } else contentCardsData = mainPageData.contentCards;
 
-        headerData = ["Home", "Features", "Pricing", "FAQs", "About"];
+        if (mainPageData.headerItems.length == 0) {
+            headerData = [
+                { item: "Home" },
+                { item: "Features" },
+                { item: "Pricing" },
+                { item: "FAQs" },
+                { item: "About" },
+            ];
+        } else headerData = mainPageData.headerItems;
 
-        footerData = ["Home", "Features", "Pricing", "FAQs", "About"];
+        if (mainPageData.footerItems.length == 0) {
+            footerData = [
+                { item: "Home" },
+                { item: "Features" },
+                { item: "Pricing" },
+                { item: "FAQs" },
+                { item: "About" },
+            ];
+        } else footerData = mainPageData.footerItems;
     }
 
     let slideIndex = 1;
@@ -158,7 +172,7 @@
             <div id="headerContent">
                 <img id="headerIcon" src="favicon.png" alt="icon" />
                 {#each headerData as headerItem}
-                    <p>{headerItem}</p>
+                    <p>{headerItem.item}</p>
                 {/each}
             </div>
             <div id="userType" />
@@ -281,7 +295,7 @@
     <footer use:pageLoaded>
         <div id="footerContent">
             {#each footerData as footerItem}
-                <p>{footerItem}</p>
+                <p>{footerItem.item}</p>
             {/each}
         </div>
         <hr style="width:100%;" />

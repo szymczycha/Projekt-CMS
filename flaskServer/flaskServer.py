@@ -96,7 +96,91 @@ def getMainPageData():
         })
     data["sliderItems"] = sliderItemsArray
 
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM contentCards """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    contentCardsArray = []
+    for contentCard in result:
+        contentCardsArray.append({
+            "title": contentCard[0],
+            "subtitle": contentCard[1],
+            "content": contentCard[2],
+            "imageURL": contentCard[3],
+            "isImageOnLeftSide": True if contentCard[4] == "True" else False,
+        })
+    data["contentCards"] = contentCardsArray
 
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM headerItems """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    headerItemsArray = []
+    for headerItem in result:
+        headerItemsArray.append({
+            "item": headerItem[0],
+        })
+    data["headerItems"] = headerItemsArray
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM footerItems """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    footerItemsArray = []
+    for footerItem in result:
+        footerItemsArray.append({
+            "item": footerItem[0],
+        })
+    data["footerItems"] = footerItemsArray
+
+    print(data)
+
+    res = make_response(jsonify(data), 200)
+    return res
+
+
+@app.route("/getEditPageData", methods=["POST","GET"])
+def getEditPageData():
+    data = {}
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM news """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    newsArray = []
+    for newsItem in result:
+        newsArray.append({
+            "header": newsItem[0],
+            "title": newsItem[1],
+            "content": newsItem[2],
+            "buttonText": newsItem[3],
+        })
+    data["news"] = newsArray
+
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM sliderItems """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    sliderItemsArray = []
+    for sliderItem in result:
+        sliderItemsArray.append({
+            "imageUrl": sliderItem[0],
+            "title": sliderItem[1],
+            "description": sliderItem[2],
+            "interval": sliderItem[3],
+        })
+    data["sliderItems"] = sliderItemsArray
 
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
@@ -114,6 +198,47 @@ def getMainPageData():
             "isImageOnLeftSide": True if contentCard[4] == "True" else False,
         })
     data["contentCards"] = contentCardsArray
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM headerItems """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    headerItemsArray = []
+    for headerItem in result:
+        headerItemsArray.append({
+            "item": headerItem[0],
+        })
+    data["headerItems"] = headerItemsArray
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM footerItems """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    footerItemsArray = []
+    for footerItem in result:
+        footerItemsArray.append({
+            "item": footerItem[0],
+        })
+    data["footerItems"] = footerItemsArray
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM users """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    # news
+    usersArray = []
+    for user in result:
+        usersArray.append({
+            "username": user[0],
+            "password": user[1],
+            "userType": user[2],
+        })
+    data["users"] = usersArray
 
     print(data)
 
