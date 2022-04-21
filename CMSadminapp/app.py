@@ -234,6 +234,127 @@ def showNewsForm(title, mode):
 
 
 
+def deleteContentCard(title):
+
+    MsgBox = tkinter.messagebox.askquestion ('Delete content card?', 'Are you sure you want to delete this content card?', icon='warning')
+    if MsgBox == 'no':
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM contentCards WHERE title="{title}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="There is no content card with this title!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""DELETE FROM contentCards WHERE title="{title}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+
+def editcontentCard(title, subtitle, content, imageURL, isImageOnLeftSide, oldTitle):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM contentCards WHERE title="{oldTitle}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) == 0:
+        tkinter.messagebox.showerror(title="ERROR", message="There is no content card with this title!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""UPDATE contentCards SET title="{title}", subtitle="{subtitle}", content="{content}", imageURL="{imageURL}", isImageOnLeftSide="{isImageOnLeftSide}" WHERE title="{oldTitle}" """)
+    myConnection.commit()
+    myConnection.close()
+    onLoggedIn()
+def addcontentCard(title, subtitle, content, imageURL, isImageOnLeftSide):
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM contentCards WHERE title="{title}" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    if len(results) > 0:
+        tkinter.messagebox.showerror(title="ERROR", message="There is already a content card with this title!")
+        return
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""INSERT INTO contentCards (title, subtitle, content, imageURL, isImageOnLeftSide) VALUES ("{title}", "{subtitle}", "{content}", "{imageURL}", "{isImageOnLeftSide}")""")
+    myConnection.commit()
+    myConnection.close()
+    top.destroy()
+    onLoggedIn()
+def showContentCardForm(title, mode):
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM contentCards WHERE title="{title}" """)
+        results = myCursor.fetchall()
+        myConnection.commit()
+        myConnection.close()
+        if len(results) == 0:
+            print(title, results)
+            tkinter.messagebox.showerror(title="ERROR", message="There is no content card with this title!")
+            return
+    global top
+    top = Toplevel(root, width=600, height=600)
+
+    if mode == "edit":
+        Label(top, text="Edit "+title).grid(row=0, column=1)
+    if mode == "add":
+        Label(top, text="Add").grid(row=0, column=1)
+
+    Label(top, text="Title: ").grid(row=1, column=0)
+    titleEdit = Entry(top)
+    titleEdit.grid(row=1, column=1)
+
+    Label(top, text="Subitle: ").grid(row=2, column=0)
+    subtitleEdit = Entry(top)
+    subtitleEdit.grid(row=2, column=1)
+
+    Label(top, text="Content: ").grid(row=3, column=0)
+    contentEdit = Entry(top)
+    contentEdit.grid(row=3, column=1)
+
+    Label(top, text="ImageURL: ").grid(row=4, column=0)
+    imageUrlEdit = Entry(top)
+    imageUrlEdit.grid(row=4, column=1)
+
+    Label(top, text="Is image on left side: ").grid(row=5, column=0)
+    isImgOnLeftSide = BooleanVar()
+    isImgOnLeftSideEdit = Checkbutton(top, variable=isImgOnLeftSide, command=lambda: print(isImgOnLeftSide.get()))
+    isImgOnLeftSideEdit.grid(row=5, column=1)
+
+    if mode == "edit":
+        myConnection = sqlite3.connect('CMS.db')
+        myCursor = myConnection.cursor()
+        myCursor.execute(f"""SELECT * FROM contentCards WHERE title="{title}" """)
+        results = myCursor.fetchall()
+        print(results)
+        print(results[0][0])
+        myConnection.commit()
+        myConnection.close()
+        titleEdit.delete(0,END)
+        titleEdit.insert(0,results[0][0])
+        subtitleEdit.delete(0,END)
+        subtitleEdit.insert(0,results[0][1])
+        contentEdit.delete(0, END)
+        contentEdit.insert(0, results[0][2])
+        imageUrlEdit.delete(0, END)
+        imageUrlEdit.insert(0, results[0][3])
+        isImgOnLeftSide.set(1 if results[0][4] == 'True' else 0)
+    if mode == "edit":
+        Button(top, text="Edit", command=lambda: editcontentCard(titleEdit.get(), subtitleEdit.get(), contentEdit.get(), imageUrlEdit.get(), isImgOnLeftSide.get(), title)).grid(row=6, column=1)
+    if mode == "add":
+        Button(top, text="Add", command=lambda: addcontentCard(titleEdit.get(), subtitleEdit.get(), contentEdit.get(), imageUrlEdit.get(), isImgOnLeftSide.get())).grid(row=6, column=1)
+
+
+
+
 def editUser(username, password, usertype, oldUsername):
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
@@ -388,6 +509,20 @@ def onLoggedIn():
     Button(root, text="Edit", command=lambda: showSliderItemForm(sliderItems.get(), "edit")).grid(row=2, column=2)
     Button(root, text="Delete", command=lambda: deleteSliderItem(sliderItems.get())).grid(row=2, column=3)
     Button(root, text="Add", command=lambda: showSliderItemForm(sliderItems.get(), "add")).grid(row=2, column=4)
+
+    Label(root, text="Edit content cards: ").grid(row=3, column=0)
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT title FROM contentCards""")
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    contentCards = ttk.Combobox(root)
+    contentCards["values"] = list(map(lambda x: x[0], results))
+    contentCards.grid(row=3, column=1)
+    Button(root, text="Edit", command=lambda: showContentCardForm(contentCards.get(), "edit")).grid(row=3, column=2)
+    Button(root, text="Delete", command=lambda: deleteContentCard(contentCards.get())).grid(row=3, column=3)
+    Button(root, text="Add", command=lambda: showContentCardForm(contentCards.get(), "add")).grid(row=3, column=4)
 
 def logIn():
     # tworzenie bazy lub połączenie z istniejącą bazą

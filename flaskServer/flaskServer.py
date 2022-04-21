@@ -111,7 +111,7 @@ def getMainPageData():
             "subtitle": contentCard[1],
             "content": contentCard[2],
             "imageURL": contentCard[3],
-            "isImageOnLeftSide": contentCard[4],
+            "isImageOnLeftSide": True if contentCard[4] == "True" else False,
         })
     data["contentCards"] = contentCardsArray
 
