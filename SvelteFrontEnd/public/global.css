@@ -539,9 +539,14 @@ pre {
   justify-content: space-evenly;
 }
 
-.editPageSaveButton {
+.editPageSaveButton, .editPageDeleteButton {
   background-color: #aaa;
   color: black;
   padding: 5px;
   border-radius: 2px;
+}
+
+.editPageDeleteButton{
+  background-color: rgb(209, 49, 49);
+  color:white;
 }

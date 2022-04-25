@@ -249,8 +249,85 @@ def getEditPageData():
 @app.route("/editData", methods=["POST", "GET"])
 def editData():
     data = request.get_json()
-    print(data)
-    return data
+    # print(data)
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    database = ""
+    setValues = ""
+    key = ""
+    if data["dataType"] == "Users":
+        database = "users"
+        key = "username"
+    elif data["dataType"] == "Nav":
+        database = "headerItems"
+        key = "item"
+    elif data["dataType"] == "Slider":
+        database = "sliderItems"
+        key = "title"
+    elif data["dataType"] == "News":
+        database = "news"
+        key = "title"
+    elif data["dataType"] == "Cards":
+        database = "contentCards"
+        key = "title"
+    elif data["dataType"] == "Footer":
+        database = "footerItems"
+        key = "item"
+    myCursor.execute(f"""SELECT * FROM {database} where {key}="{data["data"][key]}" """)
+    result = myCursor.fetchall()
+    if len(result) > 0:
+        return make_response(jsonify({"result": "Item already exists"}), 418)
+    for key in data["data"]:
+        setValues += f""" {key}='{data["data"][key]}',"""
+    setValues = setValues[0:len(setValues)-1]
+    print(setValues[0:len(setValues)-2])
+    print(f"""UPDATE {database} SET{setValues} WHERE {key}="{data["key"]}" """)
+    myCursor.execute(f"""UPDATE {database} SET{setValues} WHERE {key}="{data["key"]}" """)
+    myConnection.commit()
+    myConnection.close()
+    return make_response(jsonify({"result": "Item modified"}), 200)
+
+
+@app.route("/addData", methods=["POST", "GET"])
+def addData():
+    data = request.get_json()
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    database = ""
+    setValues = ""
+    setColumns = ""
+    key = ""
+    if data["dataType"] == "Users":
+        database = "users"
+        key = "username"
+    elif data["dataType"] == "Nav":
+        database = "headerItems"
+        key = "item"
+    elif data["dataType"] == "Slider":
+        database = "sliderItems"
+        key = "title"
+    elif data["dataType"] == "News":
+        database = "news"
+        key = "title"
+    elif data["dataType"] == "Cards":
+        database = "contentCards"
+        key = "title"
+    elif data["dataType"] == "Footer":
+        database = "footerItems"
+        key = "item"
+    myCursor.execute(f"""SELECT * FROM {database} where {key}="{data["data"][key]}" """)
+    result = myCursor.fetchall()
+    if len(result) > 0:
+        return make_response(jsonify({"result": "Item already exists"}), 418)
+    for key in data["data"]:
+        setColumns += f"""{key},"""
+        setValues += f""" "{data["data"][key]}","""
+    setColumns = setColumns[0:len(setColumns) - 1]
+    setValues = setValues[0:len(setValues)-1]
+    myCursor.execute(f"""INSERT INTO {database} ({setColumns}) VALUES ({setValues}) """)
+    myConnection.commit()
+    myConnection.close()
+    return make_response(jsonify({"result": "Item added"}), 200)
 
 if __name__ == "__main__":
     app.run(debug=True)
