@@ -329,5 +329,36 @@ def addData():
     myConnection.close()
     return make_response(jsonify({"result": "Item added"}), 200)
 
+
+@app.route("/deleteData", methods=["POST", "GET"])
+def deleteData():
+    data = request.get_json()
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    database = ""
+    key = ""
+    if data["dataType"] == "Users":
+        database = "users"
+        key = "username"
+    elif data["dataType"] == "Nav":
+        database = "headerItems"
+        key = "item"
+    elif data["dataType"] == "Slider":
+        database = "sliderItems"
+        key = "title"
+    elif data["dataType"] == "News":
+        database = "news"
+        key = "title"
+    elif data["dataType"] == "Cards":
+        database = "contentCards"
+        key = "title"
+    elif data["dataType"] == "Footer":
+        database = "footerItems"
+        key = "item"
+    myCursor.execute(f"""DELETE FROM {database} where {key}="{data["key"]}" """)
+    myConnection.commit()
+    myConnection.close()
+    return make_response(jsonify({"result": "Item deleted"}), 200)
+
 if __name__ == "__main__":
     app.run(debug=True)
