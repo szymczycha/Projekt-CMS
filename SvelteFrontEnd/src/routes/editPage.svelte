@@ -2,6 +2,8 @@
     let addItem = false;
     let page = "base";
     let editPageData;
+    let errorMessageVisible = false;
+    let errorMessage;
     function SetPage(name) {
         addItem = false;
         if (page != "base") {
@@ -579,4 +581,11 @@
             Something went wrong
         {/if}
     </main>
+    {#if errorMessageVisible}
+        <div id="errorMessage">
+            {errorMessage}
+            <button id="closeErrorMessageButton" on:click={() => errorMessageVisible = false}>&#10006;</button>
+        </div>
+        
+    {/if}
 {/await}

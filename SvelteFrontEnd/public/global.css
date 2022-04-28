@@ -570,3 +570,24 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 50%;
   padding: 0;
 }
+#errorMessage{
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgb(219, 97, 97);
+  border: 1px solid rgb(201, 0, 0);
+  color: rgb(201, 0, 0);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#closeErrorMessageButton{
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  z-index: 10;
+  background: none;
+  border:none;
+  color: rgb(201, 0, 0);
+  cursor: pointer;
+}
