@@ -246,6 +246,33 @@ def getEditPageData():
     return res
 
 
+@app.route("/getThemes", methods=["POST","GET"])
+def getThemes():
+    data = {}
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM themes """)
+    result = myCursor.fetchall()
+    myConnection.close()
+    themesArray = []
+    for themeItem in result:
+        themesArray.append({
+            "id": themeItem[0],
+            "mainBackgroundColor": themeItem[1],
+            "secondaryBackgroundColor": themeItem[2],
+            "newsHeaderBackgroundColor": themeItem[3],
+            "mainTextColor": themeItem[4],
+            "secondaryTextColor": themeItem[5]
+        })
+    data["themes"] = themesArray
+
+    print(data)
+
+    res = make_response(jsonify(data), 200)
+    return res
+
+
 @app.route("/editData", methods=["POST", "GET"])
 def editData():
     data = request.get_json()
