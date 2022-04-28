@@ -303,7 +303,7 @@ def editData():
     myCursor.execute(f"""SELECT * FROM {database} where {key}="{data["data"][key]}" """)
     result = myCursor.fetchall()
     if len(result) > 0:
-        response = make_response(jsonify({"result": "Item already exists"}), 418)
+        response = make_response(jsonify({"result": "Item already exists", "showError": True}), 418)
         return response
     for key in data["data"]:
         setValues += f""" {key}='{data["data"][key]}',"""
@@ -346,7 +346,7 @@ def addData():
     myCursor.execute(f"""SELECT * FROM {database} where {key}="{data["data"][key]}" """)
     result = myCursor.fetchall()
     if len(result) > 0:
-        return make_response(jsonify({"result": "Item already exists"}), 418)
+        return make_response(jsonify({"result": "Item already exists", "showError": True}), 418)
     for key in data["data"]:
         setColumns += f"""{key},"""
         setValues += f""" "{data["data"][key]}","""

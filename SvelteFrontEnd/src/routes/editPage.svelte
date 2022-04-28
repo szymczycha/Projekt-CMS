@@ -21,6 +21,7 @@
     async function getEditPageData() {
         const res = await fetch("/getEditPageData");
         editPageData = await res.json();
+        console.log(editPageData);
         return JSON.parse(JSON.stringify(editPageData));
     }
 
@@ -65,11 +66,13 @@
                 data: dataToSend,
                 key: key,
             }),
-        }).then((res) => {
+        })
+        .then(res => res.json())
+        .then((res) => {
             console.log(res);
-            if(res.status == 418){
+            if(res.showError){
                 errorMessageVisible = true;
-                errorMessage = `There was a problem while editing the item. Make sure you're not changing the item to a one that already exists.`
+                errorMessage = `There was a problem while editing the item: ${res.result}`
             }
             getEditPageData();
         });
@@ -142,14 +145,15 @@
                 dataType: page,
                 data: dataToSend,
             }),
-        }).then((res) => {
+        })
+        .then(res => res.json())
+        .then((res) => {
             console.log(res);
-            if(res.status == 418){
+            if(res.showError){
                 errorMessageVisible = true;
-                errorMessage = `There was a problem while adding the item. Make sure you're not adding an item that already exists.`
+                errorMessage = `There was a problem while adding the item: ${res.result}`
             } else addItem = false;
             getEditPageData();
-            
         });
     }
 
