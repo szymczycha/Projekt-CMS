@@ -26,8 +26,8 @@
 </script>
 
 <nav id="editNav">
-    <div class="flexCenter" on:click={() => SetPage("Users")} id="selectUsers">
-        Users
+    <div class="flexCenter" on:click={() => SetPage("Users")} id="selectTheme">
+        Select theme
     </div>
     <div class="flexCenter" on:click={() => SetPage("Nav")} id="selectNav">
         Nav
@@ -62,9 +62,7 @@
 {:then}
     <main class="flexCenter" id="editMain">
         {#if page == "base"}
-            <pre>
-                {JSON.stringify(themesData, null, 2)}
-            </pre>
+            <pre>{JSON.stringify(themesData, null, 2)}</pre>
         {:else if page == "Users"}
             <input type="color">
         {:else if page == "Nav"}
