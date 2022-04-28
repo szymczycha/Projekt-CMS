@@ -1,7 +1,7 @@
 <script>
     let addItem = false;
     let page = "base";
-    let editPageData;
+    let themesData;
     function SetPage(name) {
         addItem = false;
         if (page != "base") {
@@ -17,12 +17,17 @@
         }
     
     }
+    async function getThemes(){
+        const res = await fetch("/getThemes");
+        themesData = await res.json();
+        console.log(themesData);
+    }
 
 </script>
 
 <nav id="editNav">
-    <div class="flexCenter" on:click={() => SetPage("Users")} id="selectUsers">
-        Users
+    <div class="flexCenter" on:click={() => SetPage("Users")} id="selectTheme">
+        Select theme
     </div>
     <div class="flexCenter" on:click={() => SetPage("Nav")} id="selectNav">
         Nav
@@ -52,23 +57,26 @@
     </div>
 </nav>
 
-
-<main class="flexCenter" id="editMain">
-    {#if page == "base"}
-        RAW
-    {:else if page == "Users"}
-        <input type="color">
-    {:else if page == "Nav"}
-        NAV
-    {:else if page == "Slider"}
-        SLIDER
-    {:else if page == "News"}
-        News
-    {:else if page == "Cards"}
-        CARDS
-    {:else if page == "Footer"}
-        FOOTER
-    {:else}
-        Something went wrong
-    {/if}
-</main>
+{#await getThemes()}
+    Loafing themes ^w^
+{:then}
+    <main class="flexCenter" id="editMain">
+        {#if page == "base"}
+            <pre>{JSON.stringify(themesData, null, 2)}</pre>
+        {:else if page == "Users"}
+            <input type="color">
+        {:else if page == "Nav"}
+            NAV
+        {:else if page == "Slider"}
+            SLIDER
+        {:else if page == "News"}
+            News
+        {:else if page == "Cards"}
+            CARDS
+        {:else if page == "Footer"}
+            FOOTER
+        {:else}
+            Something went wrong
+        {/if}
+    </main>
+{/await}
