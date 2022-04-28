@@ -1,7 +1,7 @@
 <script>
     let addItem = false;
     let page = "base";
-    let editPageData;
+    let themesData;
     function SetPage(name) {
         addItem = false;
         if (page != "base") {
@@ -16,6 +16,11 @@
                 .classList.toggle("selectedPage");
         }
     
+    }
+    async function getThemes(){
+        const res = await fetch("/getThemes");
+        themesData = await res.json();
+        console.log(themesData);
     }
 
 </script>
@@ -52,23 +57,28 @@
     </div>
 </nav>
 
-
-<main class="flexCenter" id="editMain">
-    {#if page == "base"}
-        RAW
-    {:else if page == "Users"}
-        <input type="color">
-    {:else if page == "Nav"}
-        NAV
-    {:else if page == "Slider"}
-        SLIDER
-    {:else if page == "News"}
-        News
-    {:else if page == "Cards"}
-        CARDS
-    {:else if page == "Footer"}
-        FOOTER
-    {:else}
-        Something went wrong
-    {/if}
-</main>
+{#await getThemes()}
+    Loafing themes ^w^
+{:then}
+    <main class="flexCenter" id="editMain">
+        {#if page == "base"}
+            <pre>
+                {JSON.stringify(themesData, null, 2)}
+            </pre>
+        {:else if page == "Users"}
+            <input type="color">
+        {:else if page == "Nav"}
+            NAV
+        {:else if page == "Slider"}
+            SLIDER
+        {:else if page == "News"}
+            News
+        {:else if page == "Cards"}
+            CARDS
+        {:else if page == "Footer"}
+            FOOTER
+        {:else}
+            Something went wrong
+        {/if}
+    </main>
+{/await}
