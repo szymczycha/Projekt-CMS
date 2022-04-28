@@ -560,6 +560,7 @@ pre {
   color: rgb(201, 0, 0);
   padding: 20px;
   border-radius: 10px;
+  max-width: 500px;
 }
 
 #closeErrorMessageButton{

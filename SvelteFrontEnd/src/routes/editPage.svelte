@@ -25,6 +25,7 @@
     }
 
     async function saveData(i, data) {
+        console.log(data);
         let dataToSend, key;
         switch (page) {
             case "Users":
@@ -66,6 +67,10 @@
             }),
         }).then((res) => {
             console.log(res);
+            if(res.status == 418){
+                errorMessageVisible = true;
+                errorMessage = `There was a problem while editing the item. Make sure you're not changing the item to a one that already exists.`
+            }
             getEditPageData();
         });
     }
@@ -139,7 +144,10 @@
             }),
         }).then((res) => {
             console.log(res);
-            addItem = false;
+            if(res.status == 418){
+                errorMessageVisible = true;
+                errorMessage = `There was a problem while adding the item. Make sure you're not adding an item that already exists.`
+            } else addItem = false;
             getEditPageData();
             
         });
