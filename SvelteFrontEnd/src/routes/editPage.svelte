@@ -137,7 +137,9 @@
             }),
         }).then((res) => {
             console.log(res);
+            addItem = false;
             getEditPageData();
+            
         });
     }
 
