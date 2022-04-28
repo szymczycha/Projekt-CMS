@@ -52,3 +52,23 @@
     </div>
 </nav>
 
+
+<main class="flexCenter" id="editMain">
+    {#if page == "base"}
+        RAW
+    {:else if page == "Users"}
+        <input type="color">
+    {:else if page == "Nav"}
+        NAV
+    {:else if page == "Slider"}
+        SLIDER
+    {:else if page == "News"}
+        News
+    {:else if page == "Cards"}
+        CARDS
+    {:else if page == "Footer"}
+        FOOTER
+    {:else}
+        Something went wrong
+    {/if}
+</main>

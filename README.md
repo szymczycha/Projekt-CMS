@@ -28,3 +28,11 @@
 
 6. footerItems
 - item
+
+7. themes
+- mainBackgroundColor 
+- secondaryBackgroundColor
+- newsHeaderBackgroundColor
+- mainTextColor
+- secondaryTextColor
+- id

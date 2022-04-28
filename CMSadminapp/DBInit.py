@@ -44,6 +44,15 @@ myCursor.execute("""CREATE TABLE IF NOT EXISTS footerItems(
             item text
             )""")
 
+myCursor.execute("""CREATE TABLE IF NOT EXISTS themes(
+            id integer PRIMARY KEY AUTOINCREMENT,
+            mainBackgroundColor text,
+            secondaryBackgroundColor text,
+            newsHeaderBackgroundColor text,
+            mainTextColor text,
+            secondaryTextColor text
+            )""")
+
 # zapisywanie zmian w bazie
 myConnection.commit()
 
