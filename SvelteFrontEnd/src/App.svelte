@@ -3,6 +3,7 @@
 	import registerPage from "./routes/registerPage.svelte";
 	import mainPage from "./routes/mainPage.svelte";
 	import editPage from "./routes/editPage.svelte";
+	import themesEditPage from "./routes/themesEditPage.svelte";
 	import Tailwindcss from "./Tailwindcss.svelte";
 	import Router from "svelte-spa-router";
 </script>
@@ -15,6 +16,7 @@
 		"/registerPage": registerPage,
 		"/logInPage": loginPage,
 		"/editPage": editPage,
+		"/themesEditPage": themesEditPage,
 	}}
 />
 <main />

@@ -139,7 +139,9 @@
             }),
         }).then((res) => {
             console.log(res);
+            addItem = false;
             getEditPageData();
+            
         });
     }
 
@@ -189,7 +191,7 @@
     >
         Footer
     </div>
-    <div class="flexCenter" on:click={() => SetPage("base")} id="selectFooter">
+    <div class="flexCenter" on:click={() => SetPage("base")} >
         RAW
     </div>
 </nav>
