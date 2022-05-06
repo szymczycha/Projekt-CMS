@@ -31,7 +31,7 @@
 
 7. themes
 - name
-- mainBackgroundColor 
+- mainBackgroundColor
 - secondaryBackgroundColor
 - newsHeaderBackgroundColor
 - mainTextColor
