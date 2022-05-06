@@ -85,7 +85,7 @@ def getMainPageData():
     myCursor.execute(f"""SELECT * FROM sliderItems """)
     result = myCursor.fetchall()
     myConnection.close()
-    # news
+    # slider
     sliderItemsArray = []
     for sliderItem in result:
         sliderItemsArray.append({
@@ -101,7 +101,7 @@ def getMainPageData():
     myCursor.execute(f"""SELECT * FROM contentCards """)
     result = myCursor.fetchall()
     myConnection.close()
-    # news
+    # contentCards
     contentCardsArray = []
     for contentCard in result:
         contentCardsArray.append({
@@ -118,7 +118,7 @@ def getMainPageData():
     myCursor.execute(f"""SELECT * FROM headerItems """)
     result = myCursor.fetchall()
     myConnection.close()
-    # news
+    # header
     headerItemsArray = []
     for headerItem in result:
         headerItemsArray.append({
@@ -131,7 +131,7 @@ def getMainPageData():
     myCursor.execute(f"""SELECT * FROM footerItems """)
     result = myCursor.fetchall()
     myConnection.close()
-    # news
+    # footer
     footerItemsArray = []
     for footerItem in result:
         footerItemsArray.append({
@@ -139,6 +139,25 @@ def getMainPageData():
         })
     data["footerItems"] = footerItemsArray
 
+    # colors
+    selectedThemeId = 0
+    with open("../CMSadminapp/config/selectedTheme.txt", "r") as f:
+        selectedThemeId = f.read()
+
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM themes WHERE id = :id """, {"id": selectedThemeId})
+    result = myCursor.fetchall()[0]
+    myConnection.close()
+    colors = {
+        "mainBackgroundColor": result[2],
+        "secondaryBackgroundColor": result[3],
+        "newsHeaderBackgroundColor": result[4],
+        "mainTextColor": result[5],
+        "secondaryTextColor": result[6]
+    }
+    data["colors"] = colors
+    print(result)
     print(data)
 
     res = make_response(jsonify(data), 200)
