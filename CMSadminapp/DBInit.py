@@ -46,6 +46,7 @@ myCursor.execute("""CREATE TABLE IF NOT EXISTS footerItems(
 
 myCursor.execute("""CREATE TABLE IF NOT EXISTS themes(
             id integer PRIMARY KEY AUTOINCREMENT,
+            name text,
             mainBackgroundColor text,
             secondaryBackgroundColor text,
             newsHeaderBackgroundColor text,
