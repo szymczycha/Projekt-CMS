@@ -300,11 +300,12 @@ def editData():
     elif data["dataType"] == "Footer":
         database = "footerItems"
         key = "item"
-    myCursor.execute(f"""SELECT * FROM {database} where {key}=:dataKey """, {"dataKey": data["data"][key]})
-    result = myCursor.fetchall()
-    if len(result) > 0:
-        response = make_response(jsonify({"result": "Item already exists", "showError": True}), 418)
-        return response
+    if data["key"] != data["data"][key]:
+        myCursor.execute(f"""SELECT * FROM {database} where {key}=:dataKey """, {"dataKey": data["data"][key]})
+        result = myCursor.fetchall()
+        if len(result) > 0:
+            response = make_response(jsonify({"result": "Item already exists", "showError": True}), 418)
+            return response
     for updateKey in data["data"]:
         myCursor.execute(f"""UPDATE {database} SET {updateKey}=:updateValue WHERE {key}=:dataKey""", {"dataKey": data["key"], "updateValue": data["data"][updateKey]})
         myConnection.commit()
