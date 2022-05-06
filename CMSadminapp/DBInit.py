@@ -72,3 +72,26 @@ if len(results) == 0:
     myCursor.execute("""INSERT INTO users (username, password, userType) VALUES ("admin", "admin", "admin")""")
     myConnection.commit()
     myConnection.close()
+
+
+myConnection = sqlite3.connect('CMS.db')
+myCursor = myConnection.cursor()
+myCursor.execute(f"""SELECT * FROM themes WHERE name="default" """)
+results = myCursor.fetchall()
+myConnection.commit()
+myConnection.close()
+if len(results) == 0:
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute("""INSERT INTO themes (name, mainBackgroundColor, secondaryBackgroundColor, newsHeaderBackgroundColor, mainTextColor, secondaryTextColor) VALUES ("default","#303030", "#d0d0d0", "#909090", "#d0d0d0", "#000000")""")
+    myConnection.commit()
+    myConnection.close()
+
+    myConnection = sqlite3.connect('CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute(f"""SELECT * FROM themes WHERE name="default" """)
+    results = myCursor.fetchall()
+    myConnection.commit()
+    myConnection.close()
+    with open("./config/selectedTheme.txt", "w") as f:
+        f.write(str(results[0][0]))
