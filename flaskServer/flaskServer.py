@@ -19,7 +19,7 @@ def logIn():
     print(req)
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM users WHERE username="{req["username"]}" AND password="{req["password"]}" """)
+    myCursor.execute("SELECT * FROM users WHERE username=:username AND password=:password", {"username": req["username"], "password": req["password"]})
     results = myCursor.fetchall()
     myConnection.close()
     print(results)
@@ -38,7 +38,7 @@ def register():
     print(req)
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM users WHERE username="{req["username"]}" """)
+    myCursor.execute("SELECT * FROM users WHERE username=:username", {"username": req["username"]})
     results = myCursor.fetchall()
     myConnection.close()
     print(results)
@@ -46,7 +46,7 @@ def register():
 
         myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
         myCursor = myConnection.cursor()
-        myCursor.execute(f"""INSERT INTO users (username, password, userType) VALUES("{req["username"]}", "{req["password"]}", "moderator") """)
+        myCursor.execute("""INSERT INTO users (username, password, userType) VALUES(:username, :password, "moderator") """, {"username": req["username"], "password": req["password"]})
         myConnection.commit()
         myConnection.close()
 
@@ -300,18 +300,16 @@ def editData():
     elif data["dataType"] == "Footer":
         database = "footerItems"
         key = "item"
-    myCursor.execute(f"""SELECT * FROM {database} where {key}="{data["data"][key]}" """)
-    result = myCursor.fetchall()
-    if len(result) > 0:
-        response = make_response(jsonify({"result": "Item already exists", "showError": True}), 418)
-        return response
-    for key in data["data"]:
-        setValues += f""" {key}='{data["data"][key]}',"""
-    setValues = setValues[0:len(setValues)-1]
-    print(setValues[0:len(setValues)-2])
-    print(f"""UPDATE {database} SET{setValues} WHERE {key}="{data["key"]}" """)
-    myCursor.execute(f"""UPDATE {database} SET{setValues} WHERE {key}="{data["key"]}" """)
-    myConnection.commit()
+    if data["key"] != data["data"][key]:
+        myCursor.execute(f"""SELECT * FROM {database} where {key}=:dataKey """, {"dataKey": data["data"][key]})
+        result = myCursor.fetchall()
+        if len(result) > 0:
+            response = make_response(jsonify({"result": "Item already exists", "showError": True}), 418)
+            return response
+    for updateKey in data["data"]:
+        myCursor.execute(f"""UPDATE {database} SET {updateKey}=:updateValue WHERE {key}=:dataKey""", {"dataKey": data["key"], "updateValue": data["data"][updateKey]})
+        myConnection.commit()
+
     myConnection.close()
     return make_response(jsonify({"result": "Item modified"}), 200)
 
@@ -343,16 +341,18 @@ def addData():
     elif data["dataType"] == "Footer":
         database = "footerItems"
         key = "item"
-    myCursor.execute(f"""SELECT * FROM {database} where {key}="{data["data"][key]}" """)
+    myCursor.execute(f"""SELECT * FROM {database} where {key}=:dataKey""", {"dataKey": data["data"][key]})
     result = myCursor.fetchall()
     if len(result) > 0:
         return make_response(jsonify({"result": "Item already exists", "showError": True}), 418)
+    queryValues = {}
     for key in data["data"]:
         setColumns += f"""{key},"""
-        setValues += f""" "{data["data"][key]}","""
+        setValues += f""" :data{key},"""
+        queryValues[f"data{key}"] = data["data"][key]
     setColumns = setColumns[0:len(setColumns) - 1]
     setValues = setValues[0:len(setValues)-1]
-    myCursor.execute(f"""INSERT INTO {database} ({setColumns}) VALUES ({setValues}) """)
+    myCursor.execute(f"""INSERT INTO {database} ({setColumns}) VALUES ({setValues})""", queryValues)
     myConnection.commit()
     myConnection.close()
     return make_response(jsonify({"result": "Item added"}), 200)
@@ -383,7 +383,7 @@ def deleteData():
     elif data["dataType"] == "Footer":
         database = "footerItems"
         key = "item"
-    myCursor.execute(f"""DELETE FROM {database} where {key}="{data["key"]}" """)
+    myCursor.execute(f"""DELETE FROM {database} where {key}=:dataKey""", {"dataKey": data["key"]})
     myConnection.commit()
     myConnection.close()
     return make_response(jsonify({"result": "Item deleted"}), 200)
