@@ -3,6 +3,7 @@
     let page = "base";
     let themesData;
     let selectedThemeId;
+    let selectedTheme;
     function SetPage(name) {
         addItem = false;
         if (page != "base") {
@@ -22,6 +23,13 @@
         const res = await fetch("/getThemes");
         themesData = await res.json();
         console.log(themesData);
+        selectedThemeId = themesData.selectedThemeId;
+        themesData.themes.forEach(theme => {
+            if(theme.id == selectedThemeId){
+                selectedTheme = JSON.parse(JSON.stringify(theme));
+            }
+        });
+        console.log(selectedThemeId)
         return JSON.parse(JSON.stringify(themesData));
     }
     async function addTheme(){
@@ -58,7 +66,7 @@
         });
     }
     function onSelectTheme(){
-        let selectedTheme;
+        selectedThemeId = document.getElementById("themeNameSelect").value;
         themesData.themes.forEach(theme => {
             if(theme.id == selectedThemeId){
                 selectedTheme = JSON.parse(JSON.stringify(theme));
@@ -113,30 +121,35 @@
             <pre>{JSON.stringify(themesData, null, 2)}</pre>
         {:else if page == "Theme"}
         <div class="editPageForm">
-            <select bind:value="{selectedThemeId}" on:change="{onSelectTheme}">
+            <select on:change="{onSelectTheme}" id="themeNameSelect">
                 {#each data.themes as theme,i}
-                    <option value="{theme.id}">{theme.name}</option>
+                    {console.log(theme.id.toString(), selectedThemeId)}
+                    {#if theme.id.toString() == selectedThemeId}
+                        <option value="{theme.id}" selected>{theme.name}</option>
+                    {:else}
+                        <option value="{theme.id}" >{theme.name}</option>
+                    {/if}
                 {/each}
             </select>
             <div class="flexSpaceBetween">
                 Main Background Color: 
-                <input type="color" id="mainBackgroundColor" value="{themesData.themes[0].mainBackgroundColor}">
+                <input type="color" id="mainBackgroundColor" value="{selectedTheme.mainBackgroundColor}">
             </div>
             <div class="flexSpaceBetween">
                 Secondary Background Color: 
-                <input type="color" id="secondaryBackgroundColor" value="{themesData.themes[0].secondaryBackgroundColor}">
+                <input type="color" id="secondaryBackgroundColor" value="{selectedTheme.secondaryBackgroundColor}">
             </div>
             <div class="flexSpaceBetween">
                 News Header Background Color: 
-                <input type="color" id="newsHeaderBackgroundColor" value="{themesData.themes[0].newsHeaderBackgroundColor}">
+                <input type="color" id="newsHeaderBackgroundColor" value="{selectedTheme.newsHeaderBackgroundColor}">
             </div>
             <div class="flexSpaceBetween">
                 Main Text Color: 
-                <input type="color" id="mainTextColor" value="{themesData.themes[0].mainTextColor}">
+                <input type="color" id="mainTextColor" value="{selectedTheme.mainTextColor}">
             </div>
             <div class="flexSpaceBetween">
                 Secondary Text Color: 
-                <input type="color" id="secondaryTextColor" value="{themesData.themes[0].secondaryTextColor}">
+                <input type="color" id="secondaryTextColor" value="{selectedTheme.secondaryTextColor}">
             </div>
             <input type="hidden" value="">
             <button class="editPageSaveButton" on:click="{selectTheme}">Select</button>

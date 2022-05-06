@@ -2,3 +2,4 @@
 CMSadminapp/CMS.db
 CMSadminapp/CMS.db
 /venv
+CMSadminapp/config/selectedTheme.txt
