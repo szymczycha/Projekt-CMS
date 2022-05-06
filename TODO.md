@@ -38,3 +38,8 @@
 8. Galeria z obrazkami, sposób przeglądania
 9. Templatka projektu w svelte - dodać
 
+
+
+NAV
+KOLEJNOSC RZECZY
+PODSTRONY

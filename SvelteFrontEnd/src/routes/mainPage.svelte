@@ -193,8 +193,13 @@
         );
         document.getElementsByClassName(
             "slideshow-container"
-        )[0].style.height = `${window.innerWidth / 3.84}px`;
+        )[0].style.height = `${window.innerWidth/(2.84*Math.sin(((window.innerWidth-320)/ 1920)* 3.14 / 2)+1)}px`;
     };
+    function resizeSlider() {
+        document.getElementsByClassName(
+            "slideshow-container"
+        )[0].style.height = `${window.innerWidth/(2.84*Math.sin(((window.innerWidth-320)/ 1920)* 3.14 / 2)+1)}px`;
+    }
 </script>
 
 {#await getMainPageData()}
@@ -330,4 +335,5 @@
         <hr style="width:100%;" />
         &copy; 2022 Company, Inc.
     </footer>
+    <div use:resizeSlider></div>
 {/await}
