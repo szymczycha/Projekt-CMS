@@ -30,6 +30,7 @@
 - item
 
 7. themes
+- name
 - mainBackgroundColor 
 - secondaryBackgroundColor
 - newsHeaderBackgroundColor
