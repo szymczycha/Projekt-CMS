@@ -268,6 +268,8 @@ def getThemes():
         })
     data["themes"] = themesArray
 
+    with open("../CMSadminapp/config/selectedTheme.txt", "r") as f:
+        data["selectedThemeId"] = f.read()
     print(data)
 
     res = make_response(jsonify(data), 200)
@@ -399,6 +401,19 @@ def addTheme():
     myConnection.commit()
     myConnection.close()
     return make_response(jsonify({"result": "Theme added"}), 200)
+
+@app.route("/selectTheme", methods=["POST", "GET"])
+def selectTheme():
+    data = request.get_json()
+    print(data)
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute("UPDATE themes SET mainBackgroundColor = :mainBackgroundColor, secondaryBackgroundColor = :secondaryBackgroundColor, newsHeaderBackgroundColor = :newsHeaderBackgroundColor, mainTextColor = :mainTextColor, secondaryTextColor = :secondaryTextColor WHERE id = :id ", {"id": data["selectedThemeId"],  "mainBackgroundColor": data["mainBackgroundColor"], "secondaryBackgroundColor": data["secondaryBackgroundColor"], "newsHeaderBackgroundColor": data["newsHeaderBackgroundColor"], "mainTextColor": data["mainTextColor"], "secondaryTextColor": data["secondaryTextColor"]})
+    myConnection.commit()
+    myConnection.close()
+    with open("../CMSadminapp/config/selectedTheme.txt", "w") as f:
+        f.write(str(data["selectedThemeId"]))
+    return make_response(jsonify({"result": "Theme selected"}), 200)
 
 if __name__ == "__main__":
     app.run(debug=True)
