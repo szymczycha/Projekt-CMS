@@ -179,33 +179,62 @@
 </script>
 
 <nav id="editNav">
-    <div class="flexCenter" on:click={() => SetPage("Users")} id="selectUsers">
-        Users
-    </div>
-    <div class="flexCenter" on:click={() => SetPage("Nav")} id="selectNav">
-        Nav
-    </div>
-    <div
-        class="flexCenter"
-        on:click={() => SetPage("Slider")}
-        id="selectSlider"
-    >
-        Slider
-    </div>
-    <div class="flexCenter" on:click={() => SetPage("News")} id="selectNews">
-        News
-    </div>
-    <div class="flexCenter" on:click={() => SetPage("Cards")} id="selectCards">
-        Cards
-    </div>
-    <div
-        class="flexCenter"
-        on:click={() => SetPage("Footer")}
-        id="selectFooter"
-    >
-        Footer
-    </div>
-    <div class="flexCenter" on:click={() => SetPage("base")}>RAW</div>
+    {#if sessionStorage.userType == "admin"}
+        <div
+            class="flexCenter"
+            on:click={() => SetPage("Users")}
+            id="selectUsers"
+        >
+            Users
+        </div>
+        <div class="flexCenter" on:click={() => SetPage("Nav")} id="selectNav">
+            Nav
+        </div>
+        <div
+            class="flexCenter"
+            on:click={() => SetPage("Slider")}
+            id="selectSlider"
+        >
+            Slider
+        </div>
+        <div
+            class="flexCenter"
+            on:click={() => SetPage("News")}
+            id="selectNews"
+        >
+            News
+        </div>
+        <div
+            class="flexCenter"
+            on:click={() => SetPage("Cards")}
+            id="selectCards"
+        >
+            Cards
+        </div>
+        <div
+            class="flexCenter"
+            on:click={() => SetPage("Footer")}
+            id="selectFooter"
+        >
+            Footer
+        </div>
+        <div class="flexCenter" on:click={() => SetPage("base")}>RAW</div>
+    {:else if sessionStorage.userType == "moderator"}
+        <div
+            class="flexCenter"
+            on:click={() => SetPage("News")}
+            id="selectNews"
+        >
+            News
+        </div>
+        <div class="flexCenter" on:click={() => SetPage("base")}>RAW</div>
+    {:else}
+        <p
+            style="align-self:center; justify-self:center; width:100%; text-align:center;"
+        >
+            Only moderators and admins can edit the page data
+        </p>
+    {/if}
 </nav>
 
 {#await getEditPageData()}
