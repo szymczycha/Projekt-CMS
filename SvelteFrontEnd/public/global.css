@@ -1,3 +1,11 @@
+:root {
+  --data-mainBackgroundColor: #333;
+  --data-secondaryBackgroundColor: #ddd;
+  --data-newsHeaderBackgroundColor: #999;
+  --data-mainTextColor: #ddd;
+  --data-secondaryTextColor: black;
+}
+
 html,
 body {
   position: relative;
@@ -6,8 +14,8 @@ body {
 }
 
 body {
-  background-color: #333;
-  color: #ddd;
+  background-color: var(--data-mainBackgroundColor);
+  color: var(--data-mainTextColor);
   margin: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -49,7 +57,8 @@ input:disabled {
 }
 
 button {
-  color: #333;
+  color: var(--data-mainBackgroundColor);
+  /* nwm czy tu ma być po zmiennej */
   background-color: #f4f4f4;
   outline: none;
 }
@@ -94,7 +103,7 @@ button:focus {
 
 input[type=submit] {
   background-color: #555;
-  color: #ddd;
+  color: var(--data-mainTextColor);
 }
 
 nav {
@@ -204,11 +213,11 @@ header a:hover {
 
 .aAsButton {
   background: none;
-  color: #ddd;
+  color: var(--data-mainTextColor);
   padding: 0.4em;
   margin: 0 0 0.5em 0;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border: 1px solid var(--data-mainTextColor);
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
@@ -220,7 +229,7 @@ header a:hover {
 }
 
 .aAsButton:visited {
-  color: #ddd;
+  color: var(--data-mainTextColor);
 }
 
 /* slider */
@@ -406,12 +415,12 @@ header a:hover {
 .newsBox {
   width: 30%;
   min-width: 250px;
-  background-color: #ddd;
+  background-color: var(--data-secondaryBackgroundColor);
   padding: 0;
   margin: 10px;
   border: 1px solid gray;
   border-radius: 5px;
-  color: black;
+  color: var(--data-secondaryTextColor);
 }
 
 .newsContent {
@@ -435,7 +444,7 @@ header a:hover {
 }
 
 .newsHeader {
-  background-color: #999;
+  background-color: var(--data-newsHeaderBackgroundColor);
   padding: 5px 10px;
   font-weight: 500;
 }
