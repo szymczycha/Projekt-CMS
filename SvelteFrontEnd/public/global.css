@@ -1,3 +1,11 @@
+:root {
+  --data-mainBackgroundColor: #333;
+  --data-secondaryBackgroundColor: #ddd;
+  --data-newsHeaderBackgroundColor: #999;
+  --data-mainTextColor: #ddd;
+  --data-secondaryTextColor: black;
+}
+
 html,
 body {
   position: relative;
@@ -6,8 +14,8 @@ body {
 }
 
 body {
-  background-color: #333;
-  color: #ddd;
+  background-color: var(--data-mainBackgroundColor);
+  color: var(--data-mainTextColor);
   margin: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -49,7 +57,8 @@ input:disabled {
 }
 
 button {
-  color: #333;
+  color: var(--data-mainBackgroundColor);
+  /* nwm czy tu ma być po zmiennej */
   background-color: #f4f4f4;
   outline: none;
 }
@@ -94,7 +103,7 @@ button:focus {
 
 input[type=submit] {
   background-color: #555;
-  color: #ddd;
+  color: var(--data-mainTextColor);
 }
 
 nav {
@@ -204,11 +213,11 @@ header a:hover {
 
 .aAsButton {
   background: none;
-  color: #ddd;
+  color: var(--data-mainTextColor);
   padding: 0.4em;
   margin: 0 0 0.5em 0;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border: 1px solid var(--data-mainTextColor);
   border-radius: 2px;
   text-decoration: none;
   cursor: pointer;
@@ -220,7 +229,7 @@ header a:hover {
 }
 
 .aAsButton:visited {
-  color: #ddd;
+  color: var(--data-mainTextColor);
 }
 
 /* slider */
@@ -231,13 +240,23 @@ header a:hover {
 /* Slideshow container */
 .slideshow-container {
   width: 100%;
+  height: 500px;
   position: relative;
   margin: auto;
+  overflow: hidden;
 }
 
 /* Hide the images by default */
 .mySlides {
-  display: none;
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+.visibleSlide {
+  display: block;
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
 
 .mySlides img {
@@ -280,7 +299,7 @@ header a:hover {
 .sliderContent {
   position: absolute;
   width: 100%;
-  bottom: 10px;
+  bottom: 35px;
 }
 
 .text,
@@ -301,7 +320,7 @@ header a:hover {
 
 .subtext {
   font-size: 15px;
-  bottom: 8px;
+  bottom: 30px;
 }
 
 /* Number text (1/3 etc) */
@@ -319,6 +338,12 @@ header a:hover {
 }
 
 /* The dots/bullets/indicators */
+#dotsContainer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+
 .dot {
   cursor: pointer;
   height: 15px;
@@ -337,10 +362,12 @@ header a:hover {
 
 /* Fading animation */
 .fade {
-  animation-name: fade;
+  transform: translateX(-100%);
+  animation-name: fadeOut;
   animation-duration: 1.5s;
 }
 
+/*
 @keyframes fade {
   from {
     opacity: .4
@@ -348,6 +375,27 @@ header a:hover {
 
   to {
     opacity: 1
+  }
+}
+*/
+
+@keyframes fade {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
   }
 }
 
@@ -367,12 +415,12 @@ header a:hover {
 .newsBox {
   width: 30%;
   min-width: 250px;
-  background-color: #ddd;
+  background-color: var(--data-secondaryBackgroundColor);
   padding: 0;
   margin: 10px;
   border: 1px solid gray;
   border-radius: 5px;
-  color: black;
+  color: var(--data-secondaryTextColor);
 }
 
 .newsContent {
@@ -396,7 +444,7 @@ header a:hover {
 }
 
 .newsHeader {
-  background-color: #999;
+  background-color: var(--data-newsHeaderBackgroundColor);
   padding: 5px 10px;
   font-weight: 500;
 }
@@ -539,38 +587,43 @@ pre {
   justify-content: space-evenly;
 }
 
-.editPageSaveButton, .editPageDeleteButton {
+.editPageSaveButton,
+.editPageDeleteButton {
   background-color: #aaa;
   color: black;
   padding: 5px;
   border-radius: 2px;
 }
 
-.editPageDeleteButton{
+.editPageDeleteButton {
   background-color: rgb(209, 49, 49);
-  color:white;
+  color: white;
 }
+
 input[type="color"] {
-	-webkit-appearance: none;
+  -webkit-appearance: none;
   border: none;
-	width: 40px;
-	height: 40px;
+  width: 40px;
+  height: 40px;
   border: 2px solid #aaa;
   margin: 0;
   border-radius: 50%;
-	padding: 0;
+  padding: 0;
 
 }
+
 input[type="color"]::-webkit-color-swatch-wrapper {
-  border-radius: 50%;
-	padding: 0;
-}
-input[type="color"]::-webkit-color-swatch {
-	border: none;
   border-radius: 50%;
   padding: 0;
 }
-#errorMessage{
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+}
+
+#errorMessage {
   position: fixed;
   bottom: 20px;
   left: 20px;
@@ -582,13 +635,13 @@ input[type="color"]::-webkit-color-swatch {
   max-width: 500px;
 }
 
-#closeErrorMessageButton{
+#closeErrorMessageButton {
   position: absolute;
   top: -5px;
   right: -3px;
   z-index: 10;
   background: none;
-  border:none;
+  border: none;
   color: rgb(201, 0, 0);
   cursor: pointer;
 }

@@ -140,12 +140,16 @@
             slideIndex = slides.length;
         }
         for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+            //slides[i].style.display = "none";
+            slides[i].classList.remove("visibleSlide");
+            slides[i].classList.add("fade");
         }
         for (i = 0; i < dots.length; i++) {
             dots[i].classList.remove("active");
         }
-        slides[slideIndex - 1].style.display = "block";
+        //slides[slideIndex - 1].style.display = "block";
+        slides[slideIndex - 1].classList.add("visibleSlide");
+        slides[slideIndex - 1].classList.remove("fade");
         dots[slideIndex - 1].classList.add("active");
         //console.log(slideIndex);
         clearInterval(slideInterval);
@@ -227,14 +231,6 @@
                     <div class="sliderContent">
                         <div class="text">{slide.title}</div>
                         <div class="subtext">{slide.description}</div>
-                        <div style="text-align:center">
-                            {#each sliderData as slide, i}
-                                <span
-                                    class="dot"
-                                    on:click={() => currentSlide(i + 1)}
-                                />
-                            {/each}
-                        </div>
                     </div>
                 </div>
             {/each}
@@ -246,6 +242,11 @@
             <button id="next" class="next" on:click={() => plusSlides(1)}
                 >&#10095;</button
             >
+            <div style="text-align:center" id="dotsContainer">
+                {#each sliderData as slide, i}
+                    <span class="dot" on:click={() => currentSlide(i + 1)} />
+                {/each}
+            </div>
         </div>
         <br />
 

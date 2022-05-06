@@ -222,10 +222,24 @@
     {:else if sessionStorage.userType == "moderator"}
         <div
             class="flexCenter"
+            on:click={() => SetPage("Slider")}
+            id="selectSlider"
+        >
+            Slider
+        </div>
+        <div
+            class="flexCenter"
             on:click={() => SetPage("News")}
             id="selectNews"
         >
             News
+        </div>
+        <div
+            class="flexCenter"
+            on:click={() => SetPage("Cards")}
+            id="selectCards"
+        >
+            Cards
         </div>
         <div class="flexCenter" on:click={() => SetPage("base")}>RAW</div>
     {:else}
