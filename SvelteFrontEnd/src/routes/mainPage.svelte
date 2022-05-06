@@ -111,13 +111,28 @@
                 { item: "About" },
             ];
         } else footerData = mainPageData.footerItems;
-        
-        var r = document.querySelector(':root');
-        r.style.setProperty("--data-mainBackgroundColor", mainPageData.colors.mainBackgroundColor);
-        r.style.setProperty("--data-secondaryBackgroundColor", mainPageData.colors.secondaryBackgroundColor);
-        r.style.setProperty("--data-newsHeaderBackgroundColor", mainPageData.colors.newsHeaderBackgroundColor);
-        r.style.setProperty("--data-mainTextColor", mainPageData.colors.mainTextColor);
-        r.style.setProperty("--data-secondaryTextColor", mainPageData.colors.secondaryTextColor);
+
+        var r = document.querySelector(":root");
+        r.style.setProperty(
+            "--data-mainBackgroundColor",
+            mainPageData.colors.mainBackgroundColor
+        );
+        r.style.setProperty(
+            "--data-secondaryBackgroundColor",
+            mainPageData.colors.secondaryBackgroundColor
+        );
+        r.style.setProperty(
+            "--data-newsHeaderBackgroundColor",
+            mainPageData.colors.newsHeaderBackgroundColor
+        );
+        r.style.setProperty(
+            "--data-mainTextColor",
+            mainPageData.colors.mainTextColor
+        );
+        r.style.setProperty(
+            "--data-secondaryTextColor",
+            mainPageData.colors.secondaryTextColor
+        );
     }
 
     let slideIndex = 1;
@@ -169,8 +184,6 @@
     let pageLoaded = () => {
         console.log("loaded");
         showSlides(slideIndex);
-        document.getElementById("userType").innerText =
-            "Hi " + (sessionStorage.getItem("userType") ?? "unregistered user");
         console.log(sessionStorage.getItem("loggedIn"));
     };
 </script>
@@ -186,7 +199,6 @@
                     <p>{headerItem.item}</p>
                 {/each}
             </div>
-            <div id="userType" />
             <div id="loginBtns">
                 {#if sessionStorage.getItem("loggedIn") != "true"}
                     <a
