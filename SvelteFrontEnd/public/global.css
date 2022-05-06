@@ -1,9 +1,14 @@
 :root {
-  --data-mainBackgroundColor: #333;
+  /* --data-mainBackgroundColor: #333;
   --data-secondaryBackgroundColor: #ddd;
   --data-newsHeaderBackgroundColor: #999;
   --data-mainTextColor: #ddd;
-  --data-secondaryTextColor: black;
+  --data-secondaryTextColor: black; */
+  --data-mainBackgroundColor: red;
+  --data-secondaryBackgroundColor: green;
+  --data-newsHeaderBackgroundColor: blue;
+  --data-mainTextColor: yellow;
+  --data-secondaryTextColor: purple;
 }
 
 html,
@@ -112,7 +117,8 @@ nav {
   align-items: center;
   padding: 10px 100px;
   color: white;
-  background-color: #555;
+  background-color: hsl(var(--data-mainBackgroundColor));
+  backdrop-filter: brightness(0.8);
   text-align: center;
 }
 
