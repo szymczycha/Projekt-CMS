@@ -259,11 +259,12 @@ def getThemes():
     for themeItem in result:
         themesArray.append({
             "id": themeItem[0],
-            "mainBackgroundColor": themeItem[1],
-            "secondaryBackgroundColor": themeItem[2],
-            "newsHeaderBackgroundColor": themeItem[3],
-            "mainTextColor": themeItem[4],
-            "secondaryTextColor": themeItem[5]
+            "name": themeItem[1],
+            "mainBackgroundColor": themeItem[2],
+            "secondaryBackgroundColor": themeItem[3],
+            "newsHeaderBackgroundColor": themeItem[4],
+            "mainTextColor": themeItem[5],
+            "secondaryTextColor": themeItem[6]
         })
     data["themes"] = themesArray
 
@@ -387,6 +388,17 @@ def deleteData():
     myConnection.commit()
     myConnection.close()
     return make_response(jsonify({"result": "Item deleted"}), 200)
+
+
+@app.route("/addTheme", methods=["POST", "GET"])
+def addTheme():
+    data = request.get_json()
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute("INSERT INTO themes (name, mainBackgroundColor, secondaryBackgroundColor, newsHeaderBackgroundColor, mainTextColor, secondaryTextColor) VALUES (:name, :mainBackgroundColor, :secondaryBackgroundColor, :newsHeaderBackgroundColor, :mainTextColor, :secondaryTextColor)", {"name": data["name"], "mainBackgroundColor": data["mainBackgroundColor"], "secondaryBackgroundColor": data["secondaryBackgroundColor"], "newsHeaderBackgroundColor": data["newsHeaderBackgroundColor"], "mainTextColor": data["mainTextColor"], "secondaryTextColor": data["secondaryTextColor"]})
+    myConnection.commit()
+    myConnection.close()
+    return make_response(jsonify({"result": "Theme added"}), 200)
 
 if __name__ == "__main__":
     app.run(debug=True)
