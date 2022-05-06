@@ -4,6 +4,7 @@
   --data-newsHeaderBackgroundColor: #999;
   --data-mainTextColor: #ddd;
   --data-secondaryTextColor: black; */
+
   --data-mainBackgroundColor: red;
   --data-secondaryBackgroundColor: green;
   --data-newsHeaderBackgroundColor: blue;
@@ -116,8 +117,8 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 10px 100px;
-  color: white;
-  background-color: hsl(var(--data-mainBackgroundColor));
+  color: var(--data-mainTextColor);
+  background: none;
   backdrop-filter: brightness(0.8);
   text-align: center;
 }
@@ -438,8 +439,8 @@ header a:hover {
 }
 
 .newsContent button {
-  background-color: #444;
-  color: white;
+  background-color: var(--data-mainBackgroundColor);
+  color: var(--data-mainTextColor);
   border-radius: 5px;
   transition: 0.5s all;
   cursor: pointer;
@@ -518,6 +519,10 @@ header a:hover {
 
 .flexDirCol {
   flex-direction: column;
+}
+
+hr {
+  border-color: var(--data-mainTextColor);
 }
 
 /* editpage */
