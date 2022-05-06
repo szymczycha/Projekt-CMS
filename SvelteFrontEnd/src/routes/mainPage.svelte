@@ -186,6 +186,15 @@
         showSlides(slideIndex);
         console.log(sessionStorage.getItem("loggedIn"));
     };
+
+    window.onresize = () => {
+        console.log(
+            document.getElementsByClassName("slideshow-container")[0].style
+        );
+        document.getElementsByClassName(
+            "slideshow-container"
+        )[0].style.height = `${window.innerWidth / 3.84}px`;
+    };
 </script>
 
 {#await getMainPageData()}
