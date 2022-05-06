@@ -252,7 +252,7 @@ def getThemes():
 
     myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM themes """)
+    myCursor.execute(f"""SELECT * FROM themes ORDER BY id DESC""")
     result = myCursor.fetchall()
     myConnection.close()
     themesArray = []
