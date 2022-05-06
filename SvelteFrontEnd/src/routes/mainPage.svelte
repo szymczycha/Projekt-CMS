@@ -111,6 +111,13 @@
                 { item: "About" },
             ];
         } else footerData = mainPageData.footerItems;
+        
+        var r = document.querySelector(':root');
+        r.style.setProperty("--data-mainBackgroundColor", mainPageData.colors.mainBackgroundColor);
+        r.style.setProperty("--data-secondaryBackgroundColor", mainPageData.colors.secondaryBackgroundColor);
+        r.style.setProperty("--data-newsHeaderBackgroundColor", mainPageData.colors.newsHeaderBackgroundColor);
+        r.style.setProperty("--data-mainTextColor", mainPageData.colors.mainTextColor);
+        r.style.setProperty("--data-secondaryTextColor", mainPageData.colors.secondaryTextColor);
     }
 
     let slideIndex = 1;
