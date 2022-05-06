@@ -4,6 +4,7 @@
     let editPageData;
     let errorMessageVisible = false;
     let errorMessage;
+    let data;
     function SetPage(name) {
         addItem = false;
         if (page != "base") {
@@ -21,8 +22,9 @@
     async function getEditPageData() {
         const res = await fetch("/getEditPageData");
         editPageData = await res.json();
+        data = JSON.parse(JSON.stringify(editPageData));
         console.log(editPageData);
-        return JSON.parse(JSON.stringify(editPageData));
+        return true;
     }
 
     async function saveData(i, data) {
@@ -67,15 +69,15 @@
                 key: key,
             }),
         })
-        .then(res => res.json())
-        .then((res) => {
-            console.log(res);
-            if(res.showError){
-                errorMessageVisible = true;
-                errorMessage = `There was a problem while editing the item: ${res.result}`
-            }
-            getEditPageData();
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                if (res.showError) {
+                    errorMessageVisible = true;
+                    errorMessage = `There was a problem while editing the item: ${res.result}`;
+                }
+                getEditPageData();
+            });
     }
 
     async function addData() {
@@ -146,15 +148,15 @@
                 data: dataToSend,
             }),
         })
-        .then(res => res.json())
-        .then((res) => {
-            console.log(res);
-            if(res.showError){
-                errorMessageVisible = true;
-                errorMessage = `There was a problem while adding the item: ${res.result}`
-            } else addItem = false;
-            getEditPageData();
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                if (res.showError) {
+                    errorMessageVisible = true;
+                    errorMessage = `There was a problem while adding the item: ${res.result}`;
+                } else addItem = false;
+                getEditPageData();
+            });
     }
 
     async function deleteData(key) {
@@ -203,14 +205,12 @@
     >
         Footer
     </div>
-    <div class="flexCenter" on:click={() => SetPage("base")} >
-        RAW
-    </div>
+    <div class="flexCenter" on:click={() => SetPage("base")}>RAW</div>
 </nav>
 
 {#await getEditPageData()}
     Waiting for data...
-{:then data}
+{:then}
     <main class="flexCenter" id="editMain">
         {#if page == "base"}
             <pre>{JSON.stringify(data, null, 2)}</pre>
@@ -596,8 +596,10 @@
     {#if errorMessageVisible}
         <div id="errorMessage">
             {errorMessage}
-            <button id="closeErrorMessageButton" on:click={() => errorMessageVisible = false}>&#10006;</button>
+            <button
+                id="closeErrorMessageButton"
+                on:click={() => (errorMessageVisible = false)}>&#10006;</button
+            >
         </div>
-        
     {/if}
 {/await}
