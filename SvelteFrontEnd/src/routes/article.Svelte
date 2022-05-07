@@ -225,10 +225,12 @@
         </div>
     </header>
 
-    <main>
-        {currentArticle.header}
-        {currentArticle.title}
-        {currentArticle.content}
+    <main id="articleMain">
+        <h3>{currentArticle.header}</h3>
+        <hr />
+        <h1>{currentArticle.title}</h1>
+        <p style="margin-bottom: 50px;">{currentArticle.article}</p>
+        <hr />
     </main>
 
     <footer use:pageLoaded>

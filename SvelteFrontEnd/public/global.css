@@ -684,3 +684,7 @@ input[type="color"]::-webkit-color-swatch {
   color: var(--data-mainTextColor);
   top: 0;
 }
+
+#articleMain {
+  padding: 0 10%;
+}
