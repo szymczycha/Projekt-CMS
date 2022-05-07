@@ -459,6 +459,10 @@ header a:hover {
   margin: 0;
 }
 
+.newsContent p {
+  word-wrap: break-word;
+}
+
 .newsContent button {
   background-color: var(--data-mainBackgroundColor);
   color: var(--data-mainTextColor);
