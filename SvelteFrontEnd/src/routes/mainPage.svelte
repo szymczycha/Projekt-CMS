@@ -175,7 +175,12 @@
         clearInterval(slideInterval);
         slideInterval = window.setInterval(() => {
             slideIndex++;
-            showSlides(slideIndex);
+            try {
+                showSlides(slideIndex);
+            } catch {
+                console.log("Interval stopped");
+                clearInterval(slideInterval);
+            }
         }, sliderData[slideIndex - 1].interval);
     }
 
