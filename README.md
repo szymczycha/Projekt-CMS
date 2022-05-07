@@ -23,6 +23,7 @@ można to oczywiście zmienić na stronie i w aplikacji
  - wszystko to co normalny użytkownik
  - edytować Slider News ContentCards
  - zmieniać motyw strony
+ - zmieniać kolejność bloków na stronie
 
 # Zwykły user może: 
  - zostawiać komentarze pod artykułami
