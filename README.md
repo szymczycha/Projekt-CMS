@@ -37,3 +37,8 @@ można to oczywiście zmienić na stronie i w aplikacji
 
 ### Niezalogowany użytkownik może:
  - jedynie przeglądać stronę
+
+
+### Autorzy:
+ - Antoni Leszczyński
+ - Szymon Konieczny
