@@ -3,3 +3,4 @@ CMSadminapp/CMS.db
 CMSadminapp/CMS.db
 /venv
 CMSadminapp/config/selectedTheme.txt
+CMSadminapp/config/layout.txt

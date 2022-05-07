@@ -5,6 +5,7 @@
     let contentCardsData;
     let headerData;
     let footerData;
+    let layout;
     async function getMainPageData() {
         const res = await fetch("/getMainPageData");
         mainPageData = await res.json();
@@ -131,6 +132,8 @@
             "--data-secondaryTextColor",
             mainPageData.colors.secondaryTextColor
         );
+
+        layout = mainPageData.layout.split(",");
     }
 
     let slideIndex = 1;
@@ -191,16 +194,19 @@
     };
 
     window.onresize = () => {
-        console.log(
-            document.getElementsByClassName("slideshow-container")[0].style
-        );
-        document.getElementsByClassName(
-            "slideshow-container"
-        )[0].style.height = `${
-            window.innerWidth /
-            (2.84 * Math.sin((((window.innerWidth - 320) / 1920) * 3.14) / 2) +
-                1)
-        }px`;
+        try {
+            document.getElementsByClassName(
+                "slideshow-container"
+            )[0].style.height = `${
+                window.innerWidth /
+                (2.84 *
+                    Math.sin((((window.innerWidth - 320) / 1920) * 3.14) / 2) +
+                    1)
+            }px`;
+        } catch {
+            // console.log("h");
+            window.onresize = null;
+        }
     };
     function resizeSlider() {
         document.getElementsByClassName(
@@ -370,7 +376,10 @@
     </header>
 
     <main>
-        <div class="slideshow-container">
+        <div
+            class="slideshow-container"
+            style={`order: ${layout.indexOf("slider")};`}
+        >
             <!-- Full-width images with number and caption text -->
 
             {#each sliderData as slide, i}
@@ -399,7 +408,7 @@
         </div>
         <br />
 
-        <div id="news-container">
+        <div id="news-container" style={`order: ${layout.indexOf("news")};`}>
             {#each newsData as news}
                 <div class="newsBox">
                     <div class="newsHeader">{news.header}</div>
@@ -414,11 +423,14 @@
                     </div>
                 </div>
             {/each}
+            <hr style="width: 100%;" />
         </div>
 
-        <div id="contentCards-container">
+        <div
+            id="contentCards-container"
+            style={`order: ${layout.indexOf("contentCards")};`}
+        >
             {#each contentCardsData as card}
-                <hr />
                 <div
                     class="card"
                     style="flex-direction:{card.isImageOnLeftSide
@@ -441,8 +453,8 @@
                         alt={card.imageURL}
                     />
                 </div>
+                <hr />
             {/each}
-            <hr />
         </div>
     </main>
 

@@ -794,3 +794,8 @@ footer a:visited {
   text-decoration: none;
   color: var(--data-mainTextColor);
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+}

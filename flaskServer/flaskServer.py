@@ -159,6 +159,9 @@ def getMainPageData():
         "secondaryTextColor": result[6]
     }
     data["colors"] = colors
+
+    with open("../CMSadminapp/config/layout.txt", "r") as f:
+        data["layout"] = f.read()
     print(result)
     print(data)
 
