@@ -230,7 +230,7 @@
                 {#each headerData as headerItem}
                     <a href="/#/">{headerItem.item}</a>
                 {/each}
-                    <a href="/#/gallery">Gallery</a>
+                <a href="/#/gallery">Gallery</a>
             </div>
             <div id="loginBtns">
                 {#if sessionStorage.getItem("loggedIn") != "true"}
@@ -405,7 +405,11 @@
                     <div class="newsContent">
                         <h4>{news.title}</h4>
                         <p>{news.content}</p>
-                        <button>{news.buttonText}</button>
+                        <a
+                            href={`/#/article?id=${news.id}`}
+                            on:click={clearInterval(slideInterval)}
+                            ><button>{news.buttonText}</button></a
+                        >
                     </div>
                 </div>
             {/each}

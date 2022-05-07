@@ -112,6 +112,7 @@
                     header: document.getElementById("news_header").value,
                     title: document.getElementById("news_title").value,
                     content: document.getElementById("news_content").value,
+                    article: document.getElementById("news_article").value,
                     buttonText:
                         document.getElementById("news_buttonText").value,
                 };
@@ -176,23 +177,13 @@
             });
         }
     }
-    
+
     var r = document.querySelector(":root");
-        r.style.setProperty(
-            "--data-mainBackgroundColor", "#333"
-        );
-        r.style.setProperty(
-            "--data-secondaryBackgroundColor","#ddd"
-        );
-        r.style.setProperty(
-            "--data-newsHeaderBackgroundColor","#999"
-        );
-        r.style.setProperty(
-            "--data-mainTextColor","#ddd"
-        );
-        r.style.setProperty(
-            "--data-secondaryTextColor", "#000"
-        );
+    r.style.setProperty("--data-mainBackgroundColor", "#333");
+    r.style.setProperty("--data-secondaryBackgroundColor", "#ddd");
+    r.style.setProperty("--data-newsHeaderBackgroundColor", "#999");
+    r.style.setProperty("--data-mainTextColor", "#ddd");
+    r.style.setProperty("--data-secondaryTextColor", "#000");
 </script>
 
 <nav id="editNav">
@@ -475,6 +466,10 @@
                             <textarea id="news_content" />
                         </div>
                         <div class="flexSpaceBetween">
+                            Article:
+                            <textarea id="news_article" />
+                        </div>
+                        <div class="flexSpaceBetween">
                             Button text:
                             <input type="text" id="news_buttonText" />
                         </div>
@@ -503,6 +498,10 @@
                             <div class="flexSpaceBetween">
                                 Content:
                                 <textarea bind:value={newsItem.content} />
+                            </div>
+                            <div class="flexSpaceBetween">
+                                Article:
+                                <textarea bind:value={newsItem.article} />
                             </div>
                             <div class="flexSpaceBetween">
                                 Button text:
