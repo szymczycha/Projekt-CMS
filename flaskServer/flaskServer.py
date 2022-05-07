@@ -598,6 +598,9 @@ def getThemes():
 
     with open("../CMSadminapp/config/selectedTheme.txt", "r") as f:
         data["selectedThemeId"] = f.read()
+
+    with open("../CMSadminapp/config/layout.txt", "r") as f:
+        data["layout"] = f.read()
     print(data)
 
     res = make_response(jsonify(data), 200)
@@ -764,6 +767,8 @@ def getComments():
     output["comments"] = commentsArray
 
     return make_response(jsonify(output), 200)
+
+
 @app.route("/addComment", methods=["POST", "GET"])
 def addComment():
     # { articleId: 1, author: sss, date: sss, content: sss }
@@ -782,5 +787,14 @@ def addComment():
     myConnection.close()
     output["message"] = "added comment successfully"
     return make_response(jsonify(output), 200)
+
+
+@app.route("/saveLayout", methods=["POST", "GET"])
+def saveLayout():
+    data = request.get_json()
+    with open("../CMSadminapp/config/layout.txt", "w") as f:
+        f.write(str(data["layout"]))
+    return make_response(jsonify({"result": "Layout saved"}), 200)
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -459,6 +459,9 @@
     </main>
 
     <footer use:pageLoaded>
+        {#if layout[2] == "slider"}
+            <hr style="width: 100%;" />
+        {/if}
         <div id="footerContent">
             <a href="/#/">Home</a>
             {#each footerData as footerItem}

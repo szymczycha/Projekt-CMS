@@ -799,3 +799,34 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+.layoutItem {
+  background-color: var(--data-mainBackgroundColor);
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layoutItem p {
+  margin: 10px;
+}
+
+.layoutItem button {
+  margin: 0;
+  background-color: gray;
+  border: none;
+  color: white;
+}
+
+.layoutItem button:disabled {
+  opacity: 0.3;
+}
+
+.buttonCenterizer {
+  width: 100%;
+  text-align: center;
+}
