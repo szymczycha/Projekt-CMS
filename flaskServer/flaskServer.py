@@ -348,7 +348,7 @@ def register():
 
         myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
         myCursor = myConnection.cursor()
-        myCursor.execute("""INSERT INTO users (username, password, userType) VALUES(:username, :password, "moderator") """, {"username": req["username"], "password": req["password"]})
+        myCursor.execute("""INSERT INTO users (username, password, userType) VALUES(:username, :password, "user") """, {"username": req["username"], "password": req["password"]})
         myConnection.commit()
         myConnection.close()
 
