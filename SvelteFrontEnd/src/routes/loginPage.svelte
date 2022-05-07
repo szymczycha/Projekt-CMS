@@ -30,6 +30,10 @@
                 if (data.loggedIn == "true") {
                     sessionStorage.setItem("loggedIn", "true");
                     sessionStorage.setItem("userType", data.userType);
+                    sessionStorage.setItem(
+                        "username",
+                        document.getElementById("username").value
+                    );
                     window.location.href = "/";
                 }
                 console.log(
