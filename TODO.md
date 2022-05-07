@@ -42,7 +42,9 @@
 
 NAV done
 KOLEJNOSC RZECZY
-PODSTRONY
+PODSTRONY gallery done article wip 
+
+    komentarze wip
 LINK DO THEME done
 
 ZMIENIC PLACEHOLDERY BO CRINGE bedzie !!!!
