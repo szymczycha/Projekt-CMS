@@ -507,7 +507,7 @@ header a:hover {
 
 .card h5 {
   font-size: 130%;
-  color: #888;
+  opacity: 0.5;
 }
 
 .cardImg {

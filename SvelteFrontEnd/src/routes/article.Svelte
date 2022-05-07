@@ -182,11 +182,7 @@
         <nav>
             <div id="hamburger">
                 <button on:click={openHamburgerMenu}>
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"
-                        alt="hamburger"
-                        id="hamburgerIcon"
-                    />
+                    <span class="material-symbols-outlined"> menu </span>
                 </button>
             </div>
             <div>
