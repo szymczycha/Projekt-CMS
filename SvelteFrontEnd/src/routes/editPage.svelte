@@ -176,6 +176,23 @@
             });
         }
     }
+    
+    var r = document.querySelector(":root");
+        r.style.setProperty(
+            "--data-mainBackgroundColor", "#333"
+        );
+        r.style.setProperty(
+            "--data-secondaryBackgroundColor","#ddd"
+        );
+        r.style.setProperty(
+            "--data-newsHeaderBackgroundColor","#999"
+        );
+        r.style.setProperty(
+            "--data-mainTextColor","#ddd"
+        );
+        r.style.setProperty(
+            "--data-secondaryTextColor", "#000"
+        );
 </script>
 
 <nav id="editNav">
