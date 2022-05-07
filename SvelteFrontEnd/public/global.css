@@ -113,6 +113,15 @@ input[type=submit] {
   color: var(--data-mainTextColor);
 }
 
+#smallHeader {
+  display: none;
+}
+
+#hamburgerIcon {
+  height: 30px;
+  width: 30px;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -141,6 +150,14 @@ nav div {
   align-items: center;
   padding: 0;
   margin: 0;
+}
+
+#footerContent {
+  flex-wrap: wrap;
+}
+
+#footerContent p {
+  margin: 5px;
 }
 
 footer {
@@ -651,7 +668,8 @@ input[type="color"]::-webkit-color-swatch {
   max-width: 500px;
 }
 
-#closeErrorMessageButton {
+#closeErrorMessageButton,
+#closeHamburgerMenuButton {
   position: absolute;
   top: -5px;
   right: -3px;
@@ -660,4 +678,9 @@ input[type="color"]::-webkit-color-swatch {
   border: none;
   color: rgb(201, 0, 0);
   cursor: pointer;
+}
+
+#closeHamburgerMenuButton {
+  color: var(--data-mainTextColor);
+  top: 0;
 }

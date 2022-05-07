@@ -1,0 +1,44 @@
+#mainHeader {
+    display: none;
+}
+
+#smallHeader {
+    display: block;
+}
+
+#smallHeader nav {
+    display: block;
+}
+
+#smallHeader nav div {
+    width: unset;
+}
+
+#hamburger {
+    position: absolute;
+    left: 10px;
+}
+
+#headerIcon {
+    justify-self: center;
+}
+
+#hamburgerMenu {
+    position: fixed;
+    width: 45%;
+    height: 100%;
+    z-index: 20;
+    background-color: var(--data-mainBackgroundColor);
+    top: 0;
+    left: 0;
+    padding: 5px;
+    overflow-y: auto;
+    border-right: 2px solid black;
+    transform: translateX(-100%);
+    transition: all 0.5s;
+}
+
+#hamburgerMenu a,
+#hamburgerMenu button:not(#closeHamburgerMenuButton) {
+    padding: 0;
+}
