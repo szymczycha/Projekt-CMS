@@ -9,6 +9,8 @@
 - title
 - content
 - buttonText
+- article
+- id
 
 3. sliderItems
 - imageUrl
