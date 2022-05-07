@@ -193,48 +193,75 @@ if len(results1) == 0 and len(results2) == 0 and len(results3) == 0:
     myConnection.commit()
     myConnection.close()
 
+myConnection = sqlite3.connect('CMS.db')
+myCursor = myConnection.cursor()
+myCursor.execute(f"""SELECT * FROM contentCards WHERE title="Template 1" """)
+results1 = myCursor.fetchall()
+myConnection.commit()
+myConnection.close()
+myConnection = sqlite3.connect('CMS.db')
+myCursor = myConnection.cursor()
+myCursor.execute(f"""SELECT * FROM contentCards WHERE title="Template 2" """)
+results2 = myCursor.fetchall()
+myConnection.commit()
+myConnection.close()
+myConnection = sqlite3.connect('CMS.db')
+myCursor = myConnection.cursor()
+myCursor.execute(f"""SELECT * FROM contentCards WHERE title="Template 3" """)
+results3 = myCursor.fetchall()
+myConnection.commit()
+myConnection.close()
+if len(results1) == 0 and len(results2) == 0 and len(results3) == 0:
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM contentCards WHERE title="Template 1" """)
-    results1 = myCursor.fetchall()
+    myCursor.execute(f"""INSERT INTO contentCards (title, subtitle, content, imageURL, isImageOnLeftSide) VALUES (
+        "Template 1",
+        "This is a subtitle",
+        "This is a really nice content card. Donec posuere neque faucibus dui congue, vel tempor est fringilla. Integer ullamcorper consequat enim, sit amet venenatis sapien ornare quis. Duis at sodales sapien, at blandit erat. Aenean tempus tempor dolor, quis dictum ex congue non. Proin ex sapien, cursus eget dignissim sit amet, ultricies eget eros. Fusce luctus diam sed mi placerat suscipit. Sed massa massa, scelerisque eu massa nec, venenatis egestas ex. Vestibulum vitae quam ac magna sodales sollicitudin gravida id velit.", 
+        "https://picsum.photos/id/123/500/500",
+        "{True}" )""")
+
+    myCursor.execute(f"""INSERT INTO contentCards (title, subtitle, content, imageURL, isImageOnLeftSide) VALUES (
+        "Template 2",
+        "This is a subtitle",
+        "This is a really nice content card. Donec posuere neque faucibus dui congue, vel tempor est fringilla. Integer ullamcorper consequat enim, sit amet venenatis sapien ornare quis. Duis at sodales sapien, at blandit erat. Aenean tempus tempor dolor, quis dictum ex congue non. Proin ex sapien, cursus eget dignissim sit amet, ultricies eget eros. Fusce luctus diam sed mi placerat suscipit. Sed massa massa, scelerisque eu massa nec, venenatis egestas ex. Vestibulum vitae quam ac magna sodales sollicitudin gravida id velit.", 
+        "https://picsum.photos/id/322/500/500",
+        "{False}" )""")
+
+    myCursor.execute(f"""INSERT INTO contentCards (title, subtitle, content, imageURL, isImageOnLeftSide) VALUES (
+        "Template 3",
+        "This is a subtitle",
+        "This is a really nice content card. Donec posuere neque faucibus dui congue, vel tempor est fringilla. Integer ullamcorper consequat enim, sit amet venenatis sapien ornare quis. Duis at sodales sapien, at blandit erat. Aenean tempus tempor dolor, quis dictum ex congue non. Proin ex sapien, cursus eget dignissim sit amet, ultricies eget eros. Fusce luctus diam sed mi placerat suscipit. Sed massa massa, scelerisque eu massa nec, venenatis egestas ex. Vestibulum vitae quam ac magna sodales sollicitudin gravida id velit.", 
+        "https://picsum.photos/id/155/500/500",
+        "{True}" )""")
+
     myConnection.commit()
     myConnection.close()
+
+
+myConnection = sqlite3.connect('CMS.db')
+myCursor = myConnection.cursor()
+myCursor.execute(f"""SELECT * FROM headerItems WHERE item="Features" """)
+results1 = myCursor.fetchall()
+myConnection.commit()
+myConnection.close()
+myConnection = sqlite3.connect('CMS.db')
+myCursor = myConnection.cursor()
+myCursor.execute(f"""SELECT * FROM headerItems WHERE item="About" """)
+results2 = myCursor.fetchall()
+myConnection.commit()
+myConnection.close()
+myConnection = sqlite3.connect('CMS.db')
+myCursor = myConnection.cursor()
+myCursor.execute(f"""SELECT * FROM headerItems WHERE item="FAQ" """)
+results3 = myCursor.fetchall()
+myConnection.commit()
+myConnection.close()
+if len(results1) == 0 and len(results2) == 0 and len(results3) == 0:
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM contentCards WHERE title="Template 2" """)
-    results2 = myCursor.fetchall()
+    myCursor.execute("""INSERT INTO headerItems (item) VALUES ("Features")""")
+    myCursor.execute("""INSERT INTO headerItems (item) VALUES ("About")""")
+    myCursor.execute("""INSERT INTO headerItems (item) VALUES ("FAQ")""")
     myConnection.commit()
     myConnection.close()
-    myConnection = sqlite3.connect('CMS.db')
-    myCursor = myConnection.cursor()
-    myCursor.execute(f"""SELECT * FROM contentCards WHERE title="Template 3" """)
-    results3 = myCursor.fetchall()
-    myConnection.commit()
-    myConnection.close()
-    if len(results1) == 0 and len(results2) == 0 and len(results3) == 0:
-        myConnection = sqlite3.connect('CMS.db')
-        myCursor = myConnection.cursor()
-        myCursor.execute(f"""INSERT INTO contentCards (title, subtitle, content, imageURL, isImageOnLeftSide) VALUES (
-            "Template 1",
-            "This is a subtitle",
-            "This is a really nice content card. Donec posuere neque faucibus dui congue, vel tempor est fringilla. Integer ullamcorper consequat enim, sit amet venenatis sapien ornare quis. Duis at sodales sapien, at blandit erat. Aenean tempus tempor dolor, quis dictum ex congue non. Proin ex sapien, cursus eget dignissim sit amet, ultricies eget eros. Fusce luctus diam sed mi placerat suscipit. Sed massa massa, scelerisque eu massa nec, venenatis egestas ex. Vestibulum vitae quam ac magna sodales sollicitudin gravida id velit.", 
-            "https://picsum.photos/id/123/500/500",
-            "{True}" )""")
-
-        myCursor.execute(f"""INSERT INTO contentCards (title, subtitle, content, imageURL, isImageOnLeftSide) VALUES (
-            "Template 2",
-            "This is a subtitle",
-            "This is a really nice content card. Donec posuere neque faucibus dui congue, vel tempor est fringilla. Integer ullamcorper consequat enim, sit amet venenatis sapien ornare quis. Duis at sodales sapien, at blandit erat. Aenean tempus tempor dolor, quis dictum ex congue non. Proin ex sapien, cursus eget dignissim sit amet, ultricies eget eros. Fusce luctus diam sed mi placerat suscipit. Sed massa massa, scelerisque eu massa nec, venenatis egestas ex. Vestibulum vitae quam ac magna sodales sollicitudin gravida id velit.", 
-            "https://picsum.photos/id/322/500/500",
-            "{False}" )""")
-
-        myCursor.execute(f"""INSERT INTO contentCards (title, subtitle, content, imageURL, isImageOnLeftSide) VALUES (
-            "Template 3",
-            "This is a subtitle",
-            "This is a really nice content card. Donec posuere neque faucibus dui congue, vel tempor est fringilla. Integer ullamcorper consequat enim, sit amet venenatis sapien ornare quis. Duis at sodales sapien, at blandit erat. Aenean tempus tempor dolor, quis dictum ex congue non. Proin ex sapien, cursus eget dignissim sit amet, ultricies eget eros. Fusce luctus diam sed mi placerat suscipit. Sed massa massa, scelerisque eu massa nec, venenatis egestas ex. Vestibulum vitae quam ac magna sodales sollicitudin gravida id velit.", 
-            "https://picsum.photos/id/155/500/500",
-            "{True}" )""")
-
-        myConnection.commit()
-        myConnection.close()
-

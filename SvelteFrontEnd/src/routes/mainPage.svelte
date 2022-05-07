@@ -94,7 +94,6 @@
 
         if (mainPageData.headerItems.length == 0) {
             headerData = [
-                { item: "Home" },
                 { item: "Features" },
                 { item: "Pricing" },
                 { item: "FAQs" },
@@ -104,7 +103,6 @@
 
         if (mainPageData.footerItems.length == 0) {
             footerData = [
-                { item: "Home" },
                 { item: "Features" },
                 { item: "Pricing" },
                 { item: "FAQs" },
@@ -227,6 +225,7 @@
         <nav>
             <div id="headerContent">
                 <img id="headerIcon" src="favicon.png" alt="icon" />
+                <a href="/#/">Home</a>
                 {#each headerData as headerItem}
                     <a href="/#/">{headerItem.item}</a>
                 {/each}
@@ -448,9 +447,11 @@
 
     <footer use:pageLoaded>
         <div id="footerContent">
+            <a href="/#/">Home</a>
             {#each footerData as footerItem}
-                <p>{footerItem.item}</p>
+                <a href="/#/">{footerItem.item}</a>
             {/each}
+            <a href="/#/gallery">Gallery</a>
         </div>
         <hr style="width:100%;" />
         &copy; 2022 Company, Inc.

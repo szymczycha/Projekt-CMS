@@ -205,6 +205,7 @@
         <nav>
             <div id="headerContent">
                 <img id="headerIcon" src="favicon.png" alt="icon" />
+                <a href="/#/">Home</a>
                 {#each headerData as headerItem}
                 <a href="/#/">{headerItem.item}</a>
                 {/each}

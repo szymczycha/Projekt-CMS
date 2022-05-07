@@ -764,3 +764,7 @@ input[type="color"]::-webkit-color-swatch {
 textarea{
   resize: none;
 }
+footer a,footer a:visited{
+  text-decoration: none;
+  color: var(--data-mainTextColor);
+}
