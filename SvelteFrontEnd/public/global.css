@@ -431,6 +431,7 @@ header a:hover {
   border: 1px solid gray;
   border-radius: 5px;
   color: var(--data-secondaryTextColor);
+  overflow: hidden;
 }
 
 .newsContent {
