@@ -210,8 +210,9 @@
             <div id="headerContent">
                 <img id="headerIcon" src="favicon.png" alt="icon" />
                 {#each headerData as headerItem}
-                    <p>{headerItem.item}</p>
+                    <a href="/#/">{headerItem.item}</a>
                 {/each}
+                    <a href="/#/gallery">Gallery</a>
             </div>
             <div id="loginBtns">
                 {#if sessionStorage.getItem("loggedIn") != "true"}
