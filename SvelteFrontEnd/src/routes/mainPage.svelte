@@ -248,6 +248,13 @@
                             clearInterval(slideInterval);
                         }}>Edit Page</a
                     >
+                    <a
+                        href="/#/themesEditPage"
+                        id="editPageBtn"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Edit Theme</a
+                    >
                 {/if}
             </div>
         </nav>
