@@ -76,6 +76,8 @@ def getMainPageData():
             "title": newsItem[1],
             "content": newsItem[2],
             "buttonText": newsItem[3],
+            "article": newsItem[4],
+            "id": newsItem[5],
         })
     data["news"] = newsArray
 
