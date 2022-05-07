@@ -267,11 +267,11 @@
 
     <main id="articleMain">
         <h3>{currentArticle.header}</h3>
-        <hr />
+        <hr style="width: 100%;" />
         <h1>{currentArticle.title}</h1>
         <p style="white-space: pre-wrap;">{currentArticle.article}</p>
 
-        <hr style="margin-top: 50px;" />
+        <hr style="margin-top: 50px; width: 100%;" />
 
         <div id="bigCommentsContainer">
             <div id="comments">
