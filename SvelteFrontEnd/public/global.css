@@ -282,7 +282,7 @@ header a:hover {
 .visibleSlide {
   display: block;
   animation-name: fade;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
 }
 
 .mySlides img {
@@ -391,7 +391,7 @@ header a:hover {
 .fade {
   transform: translateX(-100%);
   animation-name: fadeOut;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
 }
 
 /*
