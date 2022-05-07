@@ -316,7 +316,7 @@
             </div>
         </div>
 
-        <hr style="margin-top: 50px;" />
+        <hr style="margin-top: 50px; width: 100%;" />
     </main>
 
     <footer use:pageLoaded>
