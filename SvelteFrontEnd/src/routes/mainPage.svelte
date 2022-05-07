@@ -339,6 +339,7 @@
                                 "userType",
                                 "unregistered user"
                             );
+                            sessionStorage.setItem("username", "");
                             window.location.reload();
                         }}>Log Out</button
                     >

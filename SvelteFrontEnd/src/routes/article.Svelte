@@ -1,6 +1,7 @@
 <script>
     let articleId = getParameterByName("id");
     let articlePageData;
+    let commentData;
     let currentArticle;
     let headerData;
     let footerData;
@@ -72,7 +73,27 @@
             "--data-secondaryTextColor",
             articlePageData.colors.secondaryTextColor
         );
+
+        await getComments();
+
         return articlePageData;
+    }
+
+    async function getComments() {
+        const res = await fetch("/getComments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                articleId: articleId,
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                commentData = res.comments;
+                console.log(commentData);
+            });
     }
 
     let pageLoaded = () => {
@@ -98,6 +119,27 @@
         if (!results) return null;
         if (!results[2]) return "";
         return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    async function addComment() {
+        await fetch("/addComment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                articleId: articleId,
+                author: sessionStorage.username,
+                date: Date(Date.now()).split(" ").slice(1, 5).join(" "),
+                content: document.getElementById("commentContent").value,
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                document.getElementById("commentContent").value = "";
+                getComments();
+            });
     }
 
     console.log(articleId);
@@ -229,8 +271,48 @@
         <h3>{currentArticle.header}</h3>
         <hr />
         <h1>{currentArticle.title}</h1>
-        <p style="margin-bottom: 50px;">{currentArticle.article}</p>
-        <hr />
+        <p>{currentArticle.article}</p>
+
+        <hr style="margin-top: 50px;" />
+
+        <div id="comments">
+            <h4>Comments:</h4>
+            {#if commentData.length == 0}
+                <p style="opacity: 0.8;">No comments yet...</p>
+            {:else}
+                {#each commentData as comment}
+                    <div class="comment">
+                        <div class="commentHeader">
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/1200px-OOjs_UI_icon_userAvatar.svg.png"
+                                alt="user"
+                                class="userIcon"
+                            />
+                            <p>{comment.author}</p>
+                        </div>
+
+                        <p class="commentContent">{comment.content}</p>
+
+                        <div class="commentFooter">
+                            <p class="commentDate">{comment.date}</p>
+                        </div>
+                    </div>
+                {/each}
+            {/if}
+            <hr />
+            {#if sessionStorage.loggedIn == "true"}
+                <h4>Write a comment:</h4>
+                <div id="newComment">
+                    <textarea id="commentContent" />
+                    <br />
+                    <button on:click={addComment}>Send</button>
+                </div>
+            {:else}
+                <h4>Log in to add a comment!</h4>
+            {/if}
+        </div>
+
+        <hr style="margin-top: 50px;" />
     </main>
 
     <footer use:pageLoaded>
