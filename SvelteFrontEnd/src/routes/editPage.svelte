@@ -226,7 +226,7 @@
         >
             Footer
         </div>
-        <div class="flexCenter" on:click={() => SetPage("base")}>RAW</div>
+        <div class="flexCenter" on:click={() => SetPage("base")}>Raw data</div>
     {:else if sessionStorage.userType == "moderator"}
         <div
             class="flexCenter"
