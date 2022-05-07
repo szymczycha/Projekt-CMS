@@ -94,6 +94,7 @@ if len(results) == 0:
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute("""INSERT INTO themes (name, mainBackgroundColor, secondaryBackgroundColor, newsHeaderBackgroundColor, mainTextColor, secondaryTextColor) VALUES ("default","#303030", "#d0d0d0", "#909090", "#d0d0d0", "#000000")""")
+    myCursor.execute("""INSERT INTO themes (name, mainBackgroundColor, secondaryBackgroundColor, newsHeaderBackgroundColor, mainTextColor, secondaryTextColor) VALUES ("green","#007A18", "#50D317", "#00B33E", "#F2F2F2", "#000000")""")
     myConnection.commit()
     myConnection.close()
 
