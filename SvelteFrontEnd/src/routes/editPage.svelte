@@ -258,7 +258,6 @@
         >
             Cards
         </div>
-        <div class="flexCenter" on:click={() => SetPage("base")}>RAW</div>
     {:else}
         <p
             style="align-self:center; justify-self:center; width:100%; text-align:center;"
@@ -266,6 +265,7 @@
             Only moderators and admins can edit the page data
         </p>
     {/if}
+    <a class="flexCenter" href="/#/">Back</a>
 </nav>
 
 {#await getEditPageData()}
