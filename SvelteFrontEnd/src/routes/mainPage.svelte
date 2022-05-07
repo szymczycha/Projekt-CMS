@@ -301,11 +301,13 @@
             <h2>CMS</h2>
             <hr />
             {#each headerData as headerItem}
-                <p>
+                <a href="/#/">
                     {headerItem.item}
-                </p>
+                </a>
                 <hr />
             {/each}
+            <a href="/#/gallery">Gallery</a>
+            <hr />
             {#if sessionStorage.getItem("loggedIn") != "true"}
                 <p>
                     <a
