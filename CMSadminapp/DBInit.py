@@ -17,7 +17,9 @@ myCursor.execute("""CREATE TABLE IF NOT EXISTS news(
             header text,
             title text,
             content text,
-            buttonText text
+            buttonText text,
+            article text,
+            id integer PRIMARY KEY AUTOINCREMENT
             )""")
 
 # tworzenie tabeli
@@ -55,7 +57,7 @@ myCursor.execute("""CREATE TABLE IF NOT EXISTS themes(
             )""")
 
 myCursor.execute("""CREATE TABLE IF NOT EXISTS comments(
-            articleTitle text,
+            articleId integer,
             author text,
             date text,
             content text 
