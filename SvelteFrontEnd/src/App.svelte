@@ -7,6 +7,7 @@
 	import gallery from "./routes/gallery.svelte";
 	import Tailwindcss from "./Tailwindcss.svelte";
 	import Router from "svelte-spa-router";
+	import article from "./routes/article.svelte";
 </script>
 
 <Tailwindcss />
@@ -19,6 +20,7 @@
 		"/editPage": editPage,
 		"/themesEditPage": themesEditPage,
 		"/gallery": gallery,
+		"/article": article,
 	}}
 />
 <main />
