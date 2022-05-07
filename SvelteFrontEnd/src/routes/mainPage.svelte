@@ -433,7 +433,7 @@
                     >
                         <h4>{card.title}</h4>
                         <h5>{card.subtitle}</h5>
-                        <p>{card.content}</p>
+                        <p style="white-space: pre-wrap;">{card.content}</p>
                     </div>
                     <img
                         class="cardImg"
