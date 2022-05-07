@@ -1,9 +1,11 @@
 # Instrukcja
 ## Aby uruchomić aplikację poraz pierwszy należy: 
 1. Po sklonowaniu repozytorium otwieramy w folderze SvelteFrontEnd cmd i wpisujemy następujące komendy:
- - npm install
- - npm run build
-2. Uruchamiamy flaskServer.py z folderu o takiej samej nazwie
+```
+npm install
+npm run build
+```
+2. Uruchamiamy flaskServer.py z folderu flaskServer
 
 ### Aplikacja TKinter znajduje się w folderze CMSadminapp pod nazwą app.py
 
