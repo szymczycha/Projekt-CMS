@@ -207,7 +207,7 @@
                 <img id="headerIcon" src="favicon.png" alt="icon" />
                 <a href="/#/">Home</a>
                 {#each headerData as headerItem}
-                <a href="/#/">{headerItem.item}</a>
+                    <a href="/#/">{headerItem.item}</a>
                 {/each}
             </div>
             <div id="loginBtns">
@@ -260,11 +260,7 @@
         <nav>
             <div id="hamburger">
                 <button on:click={openHamburgerMenu}>
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"
-                        alt="hamburger"
-                        id="hamburgerIcon"
-                    />
+                    <span class="material-symbols-outlined"> menu </span>
                 </button>
             </div>
             <div>
@@ -383,7 +379,7 @@
                     />
                 </div>
             {/each}
-            
+
             {#each sliderData as image}
                 <hr />
                 <div class="card">
