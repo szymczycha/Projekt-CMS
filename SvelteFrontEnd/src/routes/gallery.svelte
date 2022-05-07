@@ -187,12 +187,21 @@
         console.log(sessionStorage.getItem("loggedIn"));
     };
 
+    function openHamburgerMenu() {
+        document.getElementById("hamburgerMenu").style.transform =
+            "translateX(0)";
+    }
+
+    function closeHamburgerMenu() {
+        document.getElementById("hamburgerMenu").style.transform =
+            "translateX(-100%)";
+    }
 </script>
 
 {#await getMainPageData()}
     Loafing page :v
 {:then}
-    <header>
+    <header id="mainHeader">
         <nav>
             <div id="headerContent">
                 <img id="headerIcon" src="favicon.png" alt="icon" />
@@ -246,7 +255,94 @@
             </div>
         </nav>
     </header>
-
+    <header id="smallHeader">
+        <nav>
+            <div id="hamburger">
+                <button on:click={openHamburgerMenu}>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1024px-Hamburger_icon.svg.png"
+                        alt="hamburger"
+                        id="hamburgerIcon"
+                    />
+                </button>
+            </div>
+            <div>
+                <img id="headerIcon" src="favicon.png" alt="icon" />
+            </div>
+        </nav>
+        <div id="hamburgerMenu">
+            <button id="closeHamburgerMenuButton" on:click={closeHamburgerMenu}
+                >&#10006;</button
+            >
+            <h2>CMS</h2>
+            <hr />
+            {#each headerData as headerItem}
+                <a href="/#/">
+                    {headerItem.item}
+                </a>
+                <hr />
+            {/each}
+            <a href="/#/gallery">Gallery</a>
+            <hr />
+            {#if sessionStorage.getItem("loggedIn") != "true"}
+                <p>
+                    <a
+                        href="/#/logInPage"
+                        style="color: #0b0;"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Log In</a
+                    >
+                </p>
+                <hr />
+                <p>
+                    <a
+                        href="/#/registerPage"
+                        style="color: #00f;"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Register</a
+                    >
+                </p>
+                <hr />
+            {:else}
+                <p>
+                    <button
+                        style="color: #f00;"
+                        on:click={() => {
+                            sessionStorage.setItem("loggedIn", "");
+                            sessionStorage.setItem(
+                                "userType",
+                                "unregistered user"
+                            );
+                            window.location.reload();
+                        }}>Log Out</button
+                    >
+                </p>
+                <hr />
+                <p>
+                    <a
+                        href="/#/editPage"
+                        style="color: rgb(72, 187, 207);"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Edit Page</a
+                    >
+                </p>
+                <hr />
+                <p>
+                    <a
+                        href="/#/themesEditPage"
+                        style="color: rgb(72, 187, 207);"
+                        on:click={() => {
+                            clearInterval(slideInterval);
+                        }}>Edit Theme</a
+                    >
+                </p>
+                <hr />
+            {/if}
+        </div>
+    </header>
     <main>
         <!-- <div class="slideshow-container">
 
@@ -274,7 +370,7 @@
             </div>
         </div>
         <br /> -->
-
+        <h1 style="text-align: center;">Gallery</h1>
         <div id="contentCards-container">
             {#each contentCardsData as image}
                 <hr />
