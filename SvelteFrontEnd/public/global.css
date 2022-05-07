@@ -761,7 +761,7 @@ input[type="color"]::-webkit-color-swatch {
   margin: 0;
 }
 
-textarea{
+#commentContent{
   resize: none;
 }
 footer a,footer a:visited{
