@@ -6,6 +6,7 @@ npm install
 npm run build
 ```
 2. Uruchamiamy flaskServer.py z folderu flaskServer
+ - aplikacja uruchamia się na porcie 5000
 
 ### Aplikacja TKinter znajduje się w folderze CMSadminapp pod nazwą app.py
 
