@@ -560,6 +560,14 @@ hr {
   height: 100%;
   user-select: none;
 }
+#editNav>a {
+  height: 100%;
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  user-select: none;
+}
 
 #editNav>div:hover {
   background-color: #aaa;

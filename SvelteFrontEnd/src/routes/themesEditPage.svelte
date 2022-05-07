@@ -118,6 +118,8 @@
 </script>
 
 <nav id="editNav">
+    
+    {#if sessionStorage.userType == "moderator" || sessionStorage.userType == "admin"}
     <div class="flexCenter" on:click={() => SetPage("Theme")} id="selectTheme">
         Select theme
     </div>
@@ -127,6 +129,10 @@
     <div class="flexCenter" on:click={() => SetPage("base")} id="selectFooter">
         RAW
     </div>
+    {:else}
+        Only moderators or admins can edit the themes
+    {/if}
+    <a href="/#/" class="flexCenter">Back</a>
 </nav>
 
 {#await getThemes()}
