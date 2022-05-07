@@ -433,6 +433,45 @@ def selectTheme():
     with open("../CMSadminapp/config/selectedTheme.txt", "w") as f:
         f.write(str(data["selectedThemeId"]))
     return make_response(jsonify({"result": "Theme selected"}), 200)
+@app.route("/getComments", methods=["POST", "GET"])
+def getComments():
+    # { articleId: 1 }
+    data = request.get_json()
+    output = {}
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute("SELECT * FROM comments WHERE articleId = :articleId ", {"articleId": data["articleId"]})
+    comments = myCursor.fetchall()
+    myConnection.close()
 
+    commentsArray = []
+    for comment in comments:
+        commentsArray.append({
+            "articleId": comment[0],
+            "author": comment[1],
+            "date": comment[2],
+            "content": comment[3]
+        })
+    output["comments"] = commentsArray
+
+    return make_response(jsonify(output), 200)
+@app.route("/addComment", methods=["POST", "GET"])
+def addComment():
+    # { articleId: 1, author: sss, date: sss, content: sss }
+    data = request.get_json()
+    output = {}
+    myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
+    myCursor = myConnection.cursor()
+    myCursor.execute("INSERT INTO comments (articleId, author, date, content) VALUES (:articleId, :author, :date, :content) ",
+                     {
+                         "articleId": data["articleId"],
+                         "author": data["author"],
+                         "date": data["date"],
+                         "content": data["content"]
+                     })
+    myConnection.commit()
+    myConnection.close()
+    output["message"] = "added comment successfully"
+    return make_response(jsonify(output), 200)
 if __name__ == "__main__":
     app.run(debug=True)
