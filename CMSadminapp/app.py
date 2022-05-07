@@ -139,7 +139,7 @@ def deleteNews(title):
     myConnection.close()
     onLoggedIn()
 
-def editNews(header, title, content, buttonText, oldTitle):
+def editNews(header, title, content, buttonText, article, oldTitle):
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT * FROM news WHERE title="{oldTitle}" """)
@@ -151,11 +151,11 @@ def editNews(header, title, content, buttonText, oldTitle):
         return
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""UPDATE news SET header="{header}", title="{title}", content="{content}", buttonText="{buttonText}" WHERE title="{oldTitle}" """)
+    myCursor.execute(f"""UPDATE news SET header="{header}", title="{title}", content="{content}", buttonText="{buttonText}", article="{article}" WHERE title="{oldTitle}" """)
     myConnection.commit()
     myConnection.close()
     onLoggedIn()
-def addNews(header, title, content, buttonText):
+def addNews(header, title, content, buttonText, article):
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
     myCursor.execute(f"""SELECT * FROM news WHERE title="{title}" """)
@@ -167,7 +167,7 @@ def addNews(header, title, content, buttonText):
         return
     myConnection = sqlite3.connect('CMS.db')
     myCursor = myConnection.cursor()
-    myCursor.execute(f"""INSERT INTO news (header, title, content, buttonText) VALUES ("{header}", "{title}", "{content}", "{buttonText}")""")
+    myCursor.execute(f"""INSERT INTO news (header, title, content, buttonText, article) VALUES ("{header}", "{title}", "{content}", "{buttonText}", "{article}")""")
     myConnection.commit()
     myConnection.close()
     top.destroy()
@@ -209,6 +209,10 @@ def showNewsForm(title, mode):
     buttonTextEdit = Entry(top)
     buttonTextEdit.grid(row=4, column=1)
 
+    Label(top, text="Article: ").grid(row=5, column=0)
+    articleEdit = Entry(top)
+    articleEdit.grid(row=5, column=1)
+
     if mode == "edit":
         myConnection = sqlite3.connect('CMS.db')
         myCursor = myConnection.cursor()
@@ -226,10 +230,12 @@ def showNewsForm(title, mode):
         contentEdit.insert(0,results[0][2])
         buttonTextEdit.delete(0,END)
         buttonTextEdit.insert(0,results[0][3])
+        articleEdit.delete(0,END)
+        articleEdit.insert(0,results[0][4])
     if mode == "edit":
-        Button(top, text="Edit", command=lambda: editNews(headerEdit.get(), titleEdit.get(), contentEdit.get(), buttonTextEdit.get(), title)).grid(row=5, column=1)
+        Button(top, text="Edit", command=lambda: editNews(headerEdit.get(), titleEdit.get(), contentEdit.get(), buttonTextEdit.get(), articleEdit.get(), title)).grid(row=6, column=1)
     if mode == "add":
-        Button(top, text="Add", command=lambda: addNews(headerEdit.get(), titleEdit.get(), contentEdit.get(), buttonTextEdit.get())).grid(row=5, column=1)
+        Button(top, text="Add", command=lambda: addNews(headerEdit.get(), titleEdit.get(), contentEdit.get(), buttonTextEdit.get(), articleEdit.get())).grid(row=6, column=1)
 
 
 
