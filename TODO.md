@@ -41,11 +41,11 @@
 
 
 NAV done
-KOLEJNOSC RZECZY
+KOLEJNOSC RZECZY nie done
 PODSTRONY 
     gallery done 
-    article wip 
-    komentarze wip
+    article done 
+    komentarze done
 LINK DO THEME done
 
 ZMIENIC PLACEHOLDERY BO CRINGE bedzie !!!!
