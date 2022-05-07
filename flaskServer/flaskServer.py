@@ -1,3 +1,5 @@
+import os.path
+
 from flask import Flask, render_template, request, jsonify, make_response, send_from_directory
 import sqlite3
 
@@ -112,7 +114,9 @@ if len(results) == 0:
     with open("../CMSadminapp/config/selectedTheme.txt", "w") as f:
         f.write(str(results[0][0]))
 
-
+if not os.path.isfile("../CMSadminapp/config/layout.txt"):
+    with open("../CMSadminapp/config/layout.txt", "w") as f:
+        f.write("slider,news,contentCards")
 
 myConnection = sqlite3.connect('../CMSadminapp/CMS.db')
 myCursor = myConnection.cursor()
