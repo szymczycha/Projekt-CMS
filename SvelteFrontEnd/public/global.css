@@ -152,6 +152,14 @@ nav div {
   margin: 0;
 }
 
+#footerContent {
+  flex-wrap: wrap;
+}
+
+#footerContent p {
+  margin: 5px;
+}
+
 footer {
   width: 80%;
   margin-left: 10%;
