@@ -11,46 +11,20 @@
         articlePageData = await res.json();
         console.log(articlePageData);
 
-        if (articlePageData.news.length == 0) {
-            currentArticle = {
-                header: "Placeholder header",
-                title: "Placeholder title",
-                content: "Placeholder content",
-                buttonText: "Placeholder text",
-                id: articleId,
-                article: "Placeholder article",
-            };
-        } else
-            currentArticle = articlePageData.news.find(
-                (article) => article.id == articleId
-            ) ?? {
-                header: "Article not found",
-                title: "Sorry, we couldn't find an article with the given id",
-                content: "placeholder",
-                buttonText: "placeholder",
-                id: articleId,
-                article: "placeholder",
-            };
+        currentArticle = articlePageData.news.find(
+            (article) => article.id == articleId
+        ) ?? {
+            header: "Article not found",
+            title: "Sorry, we couldn't find an article with the given id",
+            content: "placeholder",
+            buttonText: "placeholder",
+            id: articleId,
+            article: "placeholder",
+        };
 
-        if (articlePageData.headerItems.length == 0) {
-            headerData = [
-                { item: "Home" },
-                { item: "Features" },
-                { item: "Pricing" },
-                { item: "FAQs" },
-                { item: "About" },
-            ];
-        } else headerData = articlePageData.headerItems;
+        headerData = articlePageData.headerItems;
 
-        if (articlePageData.footerItems.length == 0) {
-            footerData = [
-                { item: "Home" },
-                { item: "Features" },
-                { item: "Pricing" },
-                { item: "FAQs" },
-                { item: "About" },
-            ];
-        } else footerData = articlePageData.footerItems;
+        footerData = articlePageData.footerItems;
 
         var r = document.querySelector(":root");
         r.style.setProperty(
@@ -174,8 +148,22 @@
                             window.location.reload();
                         }}>Log Out</button
                     >
-                    <a href="/#/editPage" id="editPageBtn">Edit Page</a>
-                    <a href="/#/themesEditPage" id="editPageBtn">Edit Theme</a>
+                    {#if sessionStorage.userType == "moderator" || sessionStorage.userType == "admin"}
+                        <a
+                            href="/#/editPage"
+                            id="editPageBtn"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Page</a
+                        >
+                        <a
+                            href="/#/themesEditPage"
+                            id="editPageBtn"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Theme</a
+                        >
+                    {/if}
                 {/if}
             </div>
         </nav>
@@ -196,6 +184,8 @@
                 >&#10006;</button
             >
             <h2>CMS</h2>
+            <hr />
+            <a href="/#/">Home</a>
             <hr />
             {#each headerData as headerItem}
                 <a href="/#/">
@@ -241,26 +231,28 @@
                     >
                 </p>
                 <hr />
-                <p>
-                    <a
-                        href="/#/editPage"
-                        style="color: rgb(72, 187, 207);"
-                        on:click={() => {
-                            clearInterval(slideInterval);
-                        }}>Edit Page</a
-                    >
-                </p>
-                <hr />
-                <p>
-                    <a
-                        href="/#/themesEditPage"
-                        style="color: rgb(72, 187, 207);"
-                        on:click={() => {
-                            clearInterval(slideInterval);
-                        }}>Edit Theme</a
-                    >
-                </p>
-                <hr />
+                {#if sessionStorage.userType == "moderator" || sessionStorage.userType == "admin"}
+                    <p>
+                        <a
+                            href="/#/editPage"
+                            style="color: rgb(72, 187, 207);"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Page</a
+                        >
+                    </p>
+                    <hr />
+                    <p>
+                        <a
+                            href="/#/themesEditPage"
+                            style="color: rgb(72, 187, 207);"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Theme</a
+                        >
+                    </p>
+                    <hr />
+                {/if}
             {/if}
         </div>
     </header>
@@ -321,9 +313,11 @@
 
     <footer use:pageLoaded>
         <div id="footerContent">
+            <a href="/#/">Home</a>
             {#each footerData as footerItem}
-                <p>{footerItem.item}</p>
+                <a href="/#/">{footerItem.item}</a>
             {/each}
+            <a href="/#/gallery">Gallery</a>
         </div>
         <hr style="width:100%;" />
         &copy; 2022 Company, Inc.

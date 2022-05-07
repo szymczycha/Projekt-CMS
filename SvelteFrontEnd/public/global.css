@@ -591,6 +591,7 @@ hr {
   width: 100%;
   min-height: calc(100% - 50px);
   flex-direction: column;
+  padding: 20px;
 }
 
 pre {
@@ -617,6 +618,7 @@ pre {
   color: white;
   padding: 20px;
   border-radius: 2px;
+  margin: 10px;
 }
 
 .flexSpaceBetween {

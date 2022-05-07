@@ -6,110 +6,22 @@
     let headerData;
     let footerData;
     let layout;
+    let sliderVisible = true;
     async function getMainPageData() {
         const res = await fetch("/getMainPageData");
         mainPageData = await res.json();
         console.log(mainPageData);
 
-        if (mainPageData.sliderItems.length == 0) {
-            console.log("h");
-            sliderData = [
-                {
-                    imageUrl:
-                        "https://thumbs.gfycat.com/MiniatureGiddyKusimanse-max-1mb.gif",
-                    title: "Monke",
-                    description: "eet bananan",
-                    interval: 2000,
-                },
-                {
-                    imageUrl:
-                        "https://c.tenor.com/TTfEcL3R8ToAAAAC/monkeys.gif",
-                    title: "Monke2",
-                    description: "where bananan",
-                    interval: 5000,
-                },
-                {
-                    imageUrl:
-                        "https://media.discordapp.net/attachments/683372664546525228/911289580148367400/gomus.gif",
-                    title: "gomus))",
-                    description: "my beloverd",
-                    interval: 10000,
-                },
-            ];
-        } else sliderData = mainPageData.sliderItems;
+        sliderData = mainPageData.sliderItems;
+        if (sliderData.length <= 0) sliderVisible = false;
 
-        if (mainPageData.news.length == 0) {
-            newsData = [
-                {
-                    header: "News 1",
-                    title: "Holy hsit guise",
-                    content: "lorem ipus",
-                    buttonText: "going",
-                },
-                {
-                    header: "News dwa",
-                    title: "Sample tect",
-                    content: "lorm imbus",
-                    buttonText: "button.text",
-                },
-                {
-                    header: "News 3",
-                    title: "))))))))",
-                    content: "l'oreal igloo",
-                    buttonText: "[Object[Object]]",
-                },
-            ];
-        } else newsData = mainPageData.news;
+        newsData = mainPageData.news;
 
-        if (mainPageData.contentCards.length == 0) {
-            contentCardsData = [
-                {
-                    title: "Page content 1",
-                    subtitle: "This is sub tile",
-                    content:
-                        "is going to b epic card yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-                    imageURL:
-                        "https://media.discordapp.net/attachments/640672443710701568/901173807841153084/image0-1.png?width=633&height=676",
-                    isImageOnLeftSide: false,
-                },
-                {
-                    title: "Page contet 2",
-                    subtitle: "This sub is titl",
-                    content:
-                        "<scripr> while(true) program.hack(you); print(':)');<scirp/>",
-                    imageURL:
-                        "https://media.discordapp.net/attachments/741945274901200897/885139560135295006/image0-105.gif",
-                    isImageOnLeftSide: true,
-                },
-                {
-                    title: "Page content e",
-                    subtitle: "Telk is soup",
-                    content:
-                        "mik uderzył psa to mu powiedziałem co ty robisz nie bij psa a on mi mów nie udzerzyłem patrz to jest uderzenie i mnie uderzył w kolano to ja go uderzyłem w czaszke z pięsci i mamie się to niespodobało ",
-                    imageURL:
-                        "https://media.discordapp.net/attachments/659630509894271001/793958618377748492/image0-37.gif",
-                    isImageOnLeftSide: false,
-                },
-            ];
-        } else contentCardsData = mainPageData.contentCards;
+        contentCardsData = mainPageData.contentCards;
 
-        if (mainPageData.headerItems.length == 0) {
-            headerData = [
-                { item: "Features" },
-                { item: "Pricing" },
-                { item: "FAQs" },
-                { item: "About" },
-            ];
-        } else headerData = mainPageData.headerItems;
+        headerData = mainPageData.headerItems;
 
-        if (mainPageData.footerItems.length == 0) {
-            footerData = [
-                { item: "Features" },
-                { item: "Pricing" },
-                { item: "FAQs" },
-                { item: "About" },
-            ];
-        } else footerData = mainPageData.footerItems;
+        footerData = mainPageData.footerItems;
 
         var r = document.querySelector(":root");
         r.style.setProperty(
@@ -189,7 +101,7 @@
 
     let pageLoaded = () => {
         console.log("loaded");
-        showSlides(slideIndex);
+        if (sliderVisible) showSlides(slideIndex);
         console.log(sessionStorage.getItem("loggedIn"));
     };
 
@@ -271,20 +183,20 @@
                         }}>Log Out</button
                     >
                     {#if sessionStorage.userType == "moderator" || sessionStorage.userType == "admin"}
-                    <a
-                        href="/#/editPage"
-                        id="editPageBtn"
-                        on:click={() => {
-                            clearInterval(slideInterval);
-                        }}>Edit Page</a
-                    >
-                    <a
-                        href="/#/themesEditPage"
-                        id="editPageBtn"
-                        on:click={() => {
-                            clearInterval(slideInterval);
-                        }}>Edit Theme</a
-                    >
+                        <a
+                            href="/#/editPage"
+                            id="editPageBtn"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Page</a
+                        >
+                        <a
+                            href="/#/themesEditPage"
+                            id="editPageBtn"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Theme</a
+                        >
                     {/if}
                 {/if}
             </div>
@@ -307,6 +219,8 @@
                 >&#10006;</button
             >
             <h2>CMS</h2>
+            <hr />
+            <a href="/#/">Home</a>
             <hr />
             {#each headerData as headerItem}
                 <a href="/#/">
@@ -338,23 +252,22 @@
                 </p>
                 <hr />
             {:else}
-            <p>
-                <button
-                    style="color: #f00;"
-                    on:click={() => {
-                        sessionStorage.setItem("loggedIn", "");
-                        sessionStorage.setItem(
-                            "userType",
-                            "unregistered user"
-                        );
-                        sessionStorage.setItem("username", "");
-                        window.location.reload();
-                    }}>Log Out</button
-                >
-            </p>
-            <hr />
+                <p>
+                    <button
+                        style="color: #f00;"
+                        on:click={() => {
+                            sessionStorage.setItem("loggedIn", "");
+                            sessionStorage.setItem(
+                                "userType",
+                                "unregistered user"
+                            );
+                            sessionStorage.setItem("username", "");
+                            window.location.reload();
+                        }}>Log Out</button
+                    >
+                </p>
+                <hr />
                 {#if sessionStorage.userType == "moderator" || sessionStorage.userType == "admin"}
-                    
                     <p>
                         <a
                             href="/#/editPage"
@@ -381,37 +294,44 @@
     </header>
 
     <main>
-        <div
-            class="slideshow-container"
-            style={`order: ${layout.indexOf("slider")};`}
-        >
-            <!-- Full-width images with number and caption text -->
-
-            {#each sliderData as slide, i}
-                <div class="mySlides fade">
-                    <div class="numbertext">{i + 1} / {sliderData.length}</div>
-                    <img src={slide.imageUrl} alt="slider" />
-                    <div class="sliderContent">
-                        <div class="text">{slide.title}</div>
-                        <div class="subtext">{slide.description}</div>
-                    </div>
-                </div>
-            {/each}
-
-            <!-- Next and previous buttons -->
-            <button id="prev" class="prev" on:click={() => plusSlides(-1)}
-                >&#10094;</button
+        {#if sliderVisible}
+            <div
+                class="slideshow-container"
+                style={`order: ${layout.indexOf("slider")};`}
             >
-            <button id="next" class="next" on:click={() => plusSlides(1)}
-                >&#10095;</button
-            >
-            <div style="text-align:center" id="dotsContainer">
+                <!-- Full-width images with number and caption text -->
+
                 {#each sliderData as slide, i}
-                    <span class="dot" on:click={() => currentSlide(i + 1)} />
+                    <div class="mySlides fade">
+                        <div class="numbertext">
+                            {i + 1} / {sliderData.length}
+                        </div>
+                        <img src={slide.imageUrl} alt="slider" />
+                        <div class="sliderContent">
+                            <div class="text">{slide.title}</div>
+                            <div class="subtext">{slide.description}</div>
+                        </div>
+                    </div>
                 {/each}
+
+                <!-- Next and previous buttons -->
+                <button id="prev" class="prev" on:click={() => plusSlides(-1)}
+                    >&#10094;</button
+                >
+                <button id="next" class="next" on:click={() => plusSlides(1)}
+                    >&#10095;</button
+                >
+                <div style="text-align:center" id="dotsContainer">
+                    {#each sliderData as slide, i}
+                        <span
+                            class="dot"
+                            on:click={() => currentSlide(i + 1)}
+                        />
+                    {/each}
+                </div>
             </div>
-        </div>
-        <br />
+            <br />
+        {/if}
 
         <div id="news-container" style={`order: ${layout.indexOf("news")};`}>
             {#each newsData as news}
@@ -477,5 +397,7 @@
         <hr style="width:100%;" />
         &copy; 2022 Company, Inc.
     </footer>
-    <div use:resizeSlider />
+    {#if sliderVisible}
+        <div use:resizeSlider />
+    {/if}
 {/await}
