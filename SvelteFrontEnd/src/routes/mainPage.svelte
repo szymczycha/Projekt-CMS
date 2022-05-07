@@ -270,6 +270,7 @@
                             window.location.reload();
                         }}>Log Out</button
                     >
+                    {#if sessionStorage.userType == "moderator" || sessionStorage.userType == "admin"}
                     <a
                         href="/#/editPage"
                         id="editPageBtn"
@@ -284,6 +285,7 @@
                             clearInterval(slideInterval);
                         }}>Edit Theme</a
                     >
+                    {/if}
                 {/if}
             </div>
         </nav>
@@ -336,41 +338,44 @@
                 </p>
                 <hr />
             {:else}
-                <p>
-                    <button
-                        style="color: #f00;"
-                        on:click={() => {
-                            sessionStorage.setItem("loggedIn", "");
-                            sessionStorage.setItem(
-                                "userType",
-                                "unregistered user"
-                            );
-                            sessionStorage.setItem("username", "");
-                            window.location.reload();
-                        }}>Log Out</button
-                    >
-                </p>
-                <hr />
-                <p>
-                    <a
-                        href="/#/editPage"
-                        style="color: rgb(72, 187, 207);"
-                        on:click={() => {
-                            clearInterval(slideInterval);
-                        }}>Edit Page</a
-                    >
-                </p>
-                <hr />
-                <p>
-                    <a
-                        href="/#/themesEditPage"
-                        style="color: rgb(72, 187, 207);"
-                        on:click={() => {
-                            clearInterval(slideInterval);
-                        }}>Edit Theme</a
-                    >
-                </p>
-                <hr />
+            <p>
+                <button
+                    style="color: #f00;"
+                    on:click={() => {
+                        sessionStorage.setItem("loggedIn", "");
+                        sessionStorage.setItem(
+                            "userType",
+                            "unregistered user"
+                        );
+                        sessionStorage.setItem("username", "");
+                        window.location.reload();
+                    }}>Log Out</button
+                >
+            </p>
+            <hr />
+                {#if sessionStorage.userType == "moderator" || sessionStorage.userType == "admin"}
+                    
+                    <p>
+                        <a
+                            href="/#/editPage"
+                            style="color: rgb(72, 187, 207);"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Page</a
+                        >
+                    </p>
+                    <hr />
+                    <p>
+                        <a
+                            href="/#/themesEditPage"
+                            style="color: rgb(72, 187, 207);"
+                            on:click={() => {
+                                clearInterval(slideInterval);
+                            }}>Edit Theme</a
+                        >
+                    </p>
+                    <hr />
+                {/if}
             {/if}
         </div>
     </header>
