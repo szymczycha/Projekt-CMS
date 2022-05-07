@@ -109,7 +109,7 @@ if len(results) == 0:
     results = myCursor.fetchall()
     myConnection.commit()
     myConnection.close()
-    with open("./config/selectedTheme.txt", "w") as f:
+    with open("../CMSadminapp/config/selectedTheme.txt", "w") as f:
         f.write(str(results[0][0]))
 
 
