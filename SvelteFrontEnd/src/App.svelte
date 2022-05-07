@@ -4,6 +4,7 @@
 	import mainPage from "./routes/mainPage.svelte";
 	import editPage from "./routes/editPage.svelte";
 	import themesEditPage from "./routes/themesEditPage.svelte";
+	import gallery from "./routes/gallery.svelte";
 	import Tailwindcss from "./Tailwindcss.svelte";
 	import Router from "svelte-spa-router";
 </script>
@@ -17,6 +18,7 @@
 		"/logInPage": loginPage,
 		"/editPage": editPage,
 		"/themesEditPage": themesEditPage,
+		"/gallery": gallery,
 	}}
 />
 <main />
