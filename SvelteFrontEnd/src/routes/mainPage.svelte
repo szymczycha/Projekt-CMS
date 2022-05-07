@@ -395,7 +395,7 @@
             <a href="/#/gallery">Gallery</a>
         </div>
         <hr style="width:100%;" />
-        &copy; 2022 Company, Inc.
+        &copy; 2022 | Szymon Konieczny | Antoni Leszczyński
     </footer>
     {#if sliderVisible}
         <div use:resizeSlider />

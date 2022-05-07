@@ -256,32 +256,6 @@
         </div>
     </header>
     <main>
-        <!-- <div class="slideshow-container">
-
-            {#each sliderData as slide, i}
-                <div class="mySlides fade">
-                    <div class="numbertext">{i + 1} / {sliderData.length}</div>
-                    <img src={slide.imageUrl} alt="slider" />
-                    <div class="sliderContent">
-                        <div class="text">{slide.title}</div>
-                        <div class="subtext">{slide.description}</div>
-                    </div>
-                </div>
-            {/each}
-
-            <button id="prev" class="prev" on:click={() => plusSlides(-1)}
-                >&#10094;</button
-            >
-            <button id="next" class="next" on:click={() => plusSlides(1)}
-                >&#10095;</button
-            >
-            <div style="text-align:center" id="dotsContainer">
-                {#each sliderData as slide, i}
-                    <span class="dot" on:click={() => currentSlide(i + 1)} />
-                {/each}
-            </div>
-        </div>
-        <br /> -->
         <h1 style="text-align: center;">Gallery</h1>
         <div id="contentCards-container">
             {#each contentCardsData as image}
@@ -318,6 +292,6 @@
             <a href="/#/gallery">Gallery</a>
         </div>
         <hr style="width:100%;" />
-        &copy; 2022 Company, Inc.
+        &copy; 2022 | Szymon Konieczny | Antoni Leszczyński
     </footer>
 {/await}
