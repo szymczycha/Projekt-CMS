@@ -175,7 +175,12 @@
         clearInterval(slideInterval);
         slideInterval = window.setInterval(() => {
             slideIndex++;
-            showSlides(slideIndex);
+            try {
+                showSlides(slideIndex);
+            } catch {
+                console.log("Interval stopped");
+                clearInterval(slideInterval);
+            }
         }, sliderData[slideIndex - 1].interval);
     }
 
@@ -428,7 +433,7 @@
                     >
                         <h4>{card.title}</h4>
                         <h5>{card.subtitle}</h5>
-                        <p>{card.content}</p>
+                        <p style="white-space: pre-wrap;">{card.content}</p>
                     </div>
                     <img
                         class="cardImg"
