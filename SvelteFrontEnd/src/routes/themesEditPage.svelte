@@ -127,7 +127,7 @@
         AddTheme
     </div>
     <div class="flexCenter" on:click={() => SetPage("base")} id="selectFooter">
-        RAW
+        Raw data
     </div>
     {:else}
         Only moderators or admins can edit the themes

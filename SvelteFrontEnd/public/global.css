@@ -760,3 +760,11 @@ input[type="color"]::-webkit-color-swatch {
   padding: 10px;
   margin: 0;
 }
+
+textarea{
+  resize: none;
+}
+footer a,footer a:visited{
+  text-decoration: none;
+  color: var(--data-mainTextColor);
+}
