@@ -54,6 +54,14 @@ myCursor.execute("""CREATE TABLE IF NOT EXISTS themes(
             secondaryTextColor text
             )""")
 
+myCursor.execute("""CREATE TABLE IF NOT EXISTS comments(
+            articleTitle text,
+            author text,
+            date text,
+            content text 
+            )""")
+
+
 # zapisywanie zmian w bazie
 myConnection.commit()
 

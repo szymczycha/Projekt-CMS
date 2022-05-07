@@ -37,3 +37,9 @@
 - mainTextColor
 - secondaryTextColor
 - id
+
+8. comments
+- articleTitle
+- author
+- date
+- content
