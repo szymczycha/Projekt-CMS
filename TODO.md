@@ -42,8 +42,9 @@
 
 NAV done
 KOLEJNOSC RZECZY
-PODSTRONY gallery done article wip 
-
+PODSTRONY 
+    gallery done 
+    article wip 
     komentarze wip
 LINK DO THEME done
 
